@@ -5,5 +5,11 @@
     <string name="title_activity_my_auctions">MyAuctions</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_activity_my_auctions2">activity_my_auctions2</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_active_auctions">ActiveAuctions</string>
+    <string name="title_activity_market_event_details">MarketEventDetails</string>
 
 </resources>

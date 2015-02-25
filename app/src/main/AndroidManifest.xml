@@ -21,6 +21,18 @@
             android:name=".MyAuctions"
             android:label="@string/title_activity_my_auctions" >
         </activity>
+        <activity
+            android:name=".ActiveEvents"
+            android:label="@string/title_activity_active_auctions" >
+        </activity>
+        <activity
+            android:name=".MarketEventDetails"
+            android:label="@string/title_activity_market_event_details"
+            android:parentActivityName=".ActiveEvents" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ActiveEvents" />
+        </activity>
     </application>
 
 </manifest>
