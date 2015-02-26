@@ -1,36 +1,81 @@
 package com.example.hidday.directfarming;
 
 import android.app.usage.UsageEvents;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.style.TtsSpan;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 
 public class ActiveEvents extends ActionBarActivity {
 
     public static ArrayList<MarketEvent> marketEventsList=new ArrayList<>();
+    public static int idCounter;
+    private ListView market_event_list;
+    private CustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_events);
 
+        idCounter=0;
 
+        createInitialEventList();
+
+        market_event_list=(ListView)findViewById(R.id.active_market_event_list);
+        adapter=new CustomAdapter();
+        market_event_list.setAdapter(adapter);
+
+        final Intent market_event_details_intent =new Intent(this, MarketEventDetails.class);
+
+        market_event_list.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int i, long l) {
+                market_event_details_intent.putExtra("Position",i);
+                startActivity(market_event_details_intent);
+            }
+        });
 
     }
 
 
+    private void createInitialEventList() {
 
+        GregorianCalendar date1= new GregorianCalendar (2015,3,14);
+        GregorianCalendar date2= new GregorianCalendar (2015,5,2);
+        GregorianCalendar date3= new GregorianCalendar (2015,11,23);
+
+        marketEventsList.add(new MarketEvent(new Market("BeerSheva", idCounter, "089875266","Yaacov Avinu 8","Kama Yosi"),date1 ));
+        marketEventsList.add(new MarketEvent(new Market("Tel Aviv", idCounter+1, "035875266","Eben Gevirol 5","Dudu"),date2 ));
+        marketEventsList.add(new MarketEvent(new Market("Haifa", idCounter+2, "049885266","Haatzmaut 82","Yonatan"),date3 ));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_active_auctions, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        market_event_list.setAdapter(adapter);
     }
 
     @Override
@@ -47,4 +92,45 @@ public class ActiveEvents extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    class CustomAdapter extends BaseAdapter {
+        private LayoutInflater inflater;
+
+        public CustomAdapter(){
+            inflater = LayoutInflater.from(getApplicationContext());
+        }
+
+        @Override
+        public int getCount() {
+            return marketEventsList.size();
+        }
+
+        @Override
+        public Object getItem(int arg0) {
+            return marketEventsList.get(arg0);
+        }
+
+        @Override
+        public long getItemId(int arg0) {
+            return arg0;
+        }
+
+        @Override
+        public View getView(int location, View convertView, ViewGroup parent) {
+            if (convertView == null){
+                convertView = inflater.inflate(R.layout.event_list_item_layout, parent,false);
+            }
+            MarketEvent event_list = marketEventsList.get(location);
+
+            TextView event_location = (TextView) convertView.findViewById(R.id.eventlist_event_location);
+            TextView event_date = (TextView) convertView.findViewById(R.id.eventlist_event_date);
+
+            event_location.setText(event_list.getMarket().getName());
+            event_date.setText(event_list.getDate().toString());
+
+            return convertView;
+        }
+
+    }
+
 }

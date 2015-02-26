@@ -4,17 +4,18 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by hidday on 25/02/2015.
  */
-public class MarketEvent implements Comparable<Date> {
+public class MarketEvent implements Comparable<GregorianCalendar> {
 
     private Market market;
-    private Date date;
+    private GregorianCalendar date;
     private ArrayList<Crop> cropList;
 
-    public MarketEvent(Market market, Date date) {
+    public MarketEvent(Market market, GregorianCalendar date) {
         this.market = market;
         this.date = date;
     }
@@ -23,7 +24,7 @@ public class MarketEvent implements Comparable<Date> {
         return market;
     }
 
-    public Date getDate() {
+    public GregorianCalendar getDate() {
         return date;
     }
 
@@ -35,7 +36,7 @@ public class MarketEvent implements Comparable<Date> {
         this.market = market;
     }
 
-    public void setDate(Date date) {
+    public void setDate(GregorianCalendar date) {
         this.date = date;
     }
 
@@ -57,9 +58,9 @@ public class MarketEvent implements Comparable<Date> {
     }
 
     @Override
-    public int compareTo(Date anotherDate) {
+    public int compareTo(GregorianCalendar anotherDate) {
        try {
-           return  ((Date) anotherDate).compareTo(this.date);
+           return  ((GregorianCalendar) anotherDate).compareTo(this.date);
        }
        catch (RuntimeException e){
            Log.d("Date error","Erorr: " + e);
