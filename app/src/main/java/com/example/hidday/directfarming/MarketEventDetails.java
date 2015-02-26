@@ -66,19 +66,19 @@ public class MarketEventDetails extends ActionBarActivity {
 
             for(int i=0;i<marketEvent.getBidList().size();i++)
             {
-            rowList.add(new Bid(marketEvent.getBidList().get(i),marketEvent.))
+            rowList.add(marketEvent.getBidList().get(i));
             }
 
         }
 
         @Override
         public int getCount() {
-            return marketEventsList.size();
+            return rowList.size();
         }
 
         @Override
         public Object getItem(int arg0) {
-            return marketEventsList.get(arg0);
+            return rowList.get(arg0);
         }
 
         @Override
@@ -89,15 +89,20 @@ public class MarketEventDetails extends ActionBarActivity {
         @Override
         public View getView(int location, View convertView, ViewGroup parent) {
             if (convertView == null){
-                convertView = inflater.inflate(R.layout.event_list_item_layout, parent,false);
+                convertView = inflater.inflate(R.layout.bid_list_item_layout, parent,false);
             }
-            MarketEvent event_list = marketEventsList.get(location);
 
-            TextView event_location = (TextView) convertView.findViewById(R.id.eventlist_event_location);
-            TextView event_date = (TextView) convertView.findViewById(R.id.eventlist_event_date);
+            Bid bid_row = rowList.get(location);
 
-            event_location.setText(event_list.getMarket().getName());
-            event_date.setText(event_list.getDate().toString());
+            TextView bid_crop = (TextView) convertView.findViewById(R.id.bid_crop_name);
+            TextView bid_winner = (TextView) convertView.findViewById(R.id.bid_winner_name);
+            TextView bid_price = (TextView) convertView.findViewById(R.id.bid_winning_price);
+
+
+            bid_crop.setText(bid_row.getCrop().toString());
+            bid_winner.setText(bid_row.getWinner().toString());
+            bid_price.setText(bid_row.getPrice());
+
 
             return convertView;
         }
