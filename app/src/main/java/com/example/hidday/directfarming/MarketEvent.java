@@ -13,11 +13,19 @@ public class MarketEvent implements Comparable<GregorianCalendar> {
 
     private Market market;
     private GregorianCalendar date;
-    private ArrayList<Crop> cropList;
+    private ArrayList<Bid> bidList;
 
     public MarketEvent(Market market, GregorianCalendar date) {
         this.market = market;
         this.date = date;
+    }
+
+    public ArrayList<Bid> getBidList() {
+        return bidList;
+    }
+
+    public void setBidList(ArrayList<Bid> bidList) {
+        this.bidList = bidList;
     }
 
     public Market getMarket() {
@@ -28,20 +36,12 @@ public class MarketEvent implements Comparable<GregorianCalendar> {
         return date;
     }
 
-    public ArrayList<Crop> getCropList() {
-        return cropList;
-    }
-
     public void setMarket(Market market) {
         this.market = market;
     }
 
     public void setDate(GregorianCalendar date) {
         this.date = date;
-    }
-
-    public void setCropList(ArrayList<Crop> cropList) {
-        this.cropList = cropList;
     }
 
     @Override
