@@ -1,5 +1,6 @@
 package com.example.hidday.directfarming;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,15 +22,28 @@ public class MarketEventDetails extends ActionBarActivity {
 
     private MarketEvent marketEvent;
     public static int idCounter;
-    private ListView market_event_list;
     private CustomAdapter adapter;
-
+    private ListView event_bids_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_market_event_details);
 
+        event_bids_list=(ListView)findViewById(R.id.active_market_event_list);
+        adapter=new CustomAdapter();
+        event_bids_list.setAdapter(adapter);
+
+        final Intent market_event_details_intent =new Intent(this, MarketEventDetails.class);
+
+
+        event_bids_list.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int i, long l) {
+                market_event_details_intent.putExtra("Position",i);
+                startActivity(market_event_details_intent);
+            }
+        });
 
 
     }
@@ -97,12 +113,11 @@ public class MarketEventDetails extends ActionBarActivity {
             TextView bid_crop = (TextView) convertView.findViewById(R.id.bid_crop_name);
             TextView bid_winner = (TextView) convertView.findViewById(R.id.bid_winner_name);
             TextView bid_price = (TextView) convertView.findViewById(R.id.bid_winning_price);
-
+            Button place_bid = (Button) convertView.findViewById(R.id.bid_row_item_place_bid_button);
 
             bid_crop.setText(bid_row.getCrop().toString());
             bid_winner.setText(bid_row.getWinner().toString());
             bid_price.setText(bid_row.getPrice());
-
 
             return convertView;
         }
