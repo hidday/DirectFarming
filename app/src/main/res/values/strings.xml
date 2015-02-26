@@ -11,5 +11,6 @@
     <string name="title_section3">Section 3</string>
     <string name="title_activity_active_auctions">ActiveAuctions</string>
     <string name="title_activity_market_event_details">MarketEventDetails</string>
+    <string name="title_activity_place_bid">PlaceBid</string>
 
 </resources>

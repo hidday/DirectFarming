@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,11 +25,17 @@ public class MarketEventDetails extends ActionBarActivity {
     public static int idCounter;
     private CustomAdapter adapter;
     private ListView event_bids_list;
+    Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_market_event_details);
+
+        extras = getIntent().getExtras();
+        final int position = extras.getInt("Position");
+
+        marketEvent=ActiveEvents.marketEventsList.get(position);
 
         event_bids_list=(ListView)findViewById(R.id.active_market_event_list);
         adapter=new CustomAdapter();
@@ -110,14 +117,28 @@ public class MarketEventDetails extends ActionBarActivity {
 
             Bid bid_row = rowList.get(location);
 
+            TextView market_event_name = (TextView) convertView.findViewById(R.id.event_details_headline);
+            TextView market_event_date = (TextView) convertView.findViewById(R.id.event_details_subheadline);
             TextView bid_crop = (TextView) convertView.findViewById(R.id.bid_crop_name);
             TextView bid_winner = (TextView) convertView.findViewById(R.id.bid_winner_name);
             TextView bid_price = (TextView) convertView.findViewById(R.id.bid_winning_price);
-            Button place_bid = (Button) convertView.findViewById(R.id.bid_row_item_place_bid_button);
+            ImageButton place_bid =(ImageButton) convertView.findViewById(R.id.bid_row_item_place_bid_button);
 
             bid_crop.setText(bid_row.getCrop().toString());
             bid_winner.setText(bid_row.getWinner().toString());
             bid_price.setText(bid_row.getPrice());
+
+            market_event_name.setText(marketEvent.getMarket().getName());
+            market_event_date.setText(marketEvent.getDate().toString());
+
+
+            place_bid.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i= new Intent(getApplicationContext(), PlaceBid.class);
+                    startActivity(i);
+                }
+            });
 
             return convertView;
         }

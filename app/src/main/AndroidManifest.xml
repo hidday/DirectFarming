@@ -33,6 +33,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ActiveEvents" />
         </activity>
+        <activity
+            android:name=".PlaceBid"
+            android:label="@string/title_activity_place_bid" >
+        </activity>
     </application>
 
 </manifest>
