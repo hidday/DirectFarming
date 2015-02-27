@@ -4,6 +4,7 @@ package com.example.hidday.directfarming;
  * Created by Avri on 26/02/2015.
  */
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +17,8 @@ public class Welcome extends Activity {
 
     // Declare Variable
     Button logout;
+    Button auctions;
+    Button history;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,15 +40,39 @@ public class Welcome extends Activity {
 
         // Locate Button in welcome.xml
         logout = (Button) findViewById(R.id.logout);
+        auctions = (Button) findViewById(R.id.auctions);
+        history = (Button) findViewById(R.id.history);
 
         // Logout Button Click Listener
         logout.setOnClickListener(new OnClickListener() {
 
+                                      public void onClick(View arg0) {
+                                          // Logout current user
+                                          ParseUser.logOut();
+                                          finish();
+                                      }
+                                  });
+
+        auctions.setOnClickListener(new OnClickListener() {
+
+                                      public void onClick(View arg0) {
+
+                                          Intent intent = new Intent(Welcome.this, ActiveEvents.class);
+                                          startActivity(intent);
+                                      }
+                                  });
+        history.setOnClickListener(new OnClickListener() {
+
             public void onClick(View arg0) {
-                // Logout current user
-                ParseUser.logOut();
-                finish();
+
+                Intent intent = new Intent(Welcome.this, MyAuctions.class);
+                startActivity(intent);
             }
+
         });
-    }
+
+
+
+
+}
 }
