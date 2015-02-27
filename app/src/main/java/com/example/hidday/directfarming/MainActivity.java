@@ -6,6 +6,7 @@ package com.example.hidday.directfarming;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -14,6 +15,12 @@ import com.parse.ParseUser;
 
 
 public class MainActivity extends Activity {
+
+
+    /******************************/
+    public static final Farmer myName = new Farmer("Hidday",1,"087534128","yaacov avinu");
+    //for testing purposes//
+    /*******************************/
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
