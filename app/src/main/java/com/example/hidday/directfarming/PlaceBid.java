@@ -1,12 +1,20 @@
 package com.example.hidday.directfarming;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class PlaceBid extends ActionBarActivity {
+
+    Bundle extras;
+    Bid bid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +24,29 @@ public class PlaceBid extends ActionBarActivity {
         extras = getIntent().getExtras();
         final int position = extras.getInt("Position");
 
-        rest=MainActivity.resturantsList.get(position);
+        this.bid=MarketEventDetails.bidList.get(position);
+
+        TextView crop_name = (TextView) findViewById(R.id.place_bid_crop_name);
+        TextView previous_price = (TextView) findViewById(R.id.place_bid_previous_price);
+        final EditText new_price = (EditText) findViewById(R.id.place_bid_new_price);
+        Button place_bid_button= (Button) findViewById(R.id.place_bid_button);
+
+        crop_name.setText(bid.getCrop().toString());
+        previous_price.setText(bid.getPrice());
+
+        place_bid_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MarketEventDetails.bidList.get(position).placeBid(MainActivity.myName.getName(), Integer.parseInt(new_price.getText().toString()));
+
+                Intent i= new Intent(getApplicationContext(), ActiveEvents.class);
+                startActivity(i);
+            }
+        });
+
+
+
 
     }
 

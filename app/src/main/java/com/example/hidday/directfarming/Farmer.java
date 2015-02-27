@@ -3,6 +3,7 @@ package com.example.hidday.directfarming;
 import android.location.Address;
 import android.provider.ContactsContract;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
 
 /**
  * Created by hidday on 25/02/2015.
@@ -10,15 +11,17 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 public class Farmer {
     private String name;
     private int id;
-    private PhoneNumberFormattingTextWatcher phone;
-    private Address address;
+    private String phone;
+    private String address;
 
-    public Farmer(String name, int id, PhoneNumberFormattingTextWatcher phone, Address address) {
+    public Farmer(String name, int id, String phone, String address) {
         this.name = name;
         this.id = id;
         this.phone = phone;
         this.address = address;
     }
+
+
 
     public String getName() {
         return name;
@@ -36,19 +39,19 @@ public class Farmer {
         this.id = id;
     }
 
-    public PhoneNumberFormattingTextWatcher getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(PhoneNumberFormattingTextWatcher phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 

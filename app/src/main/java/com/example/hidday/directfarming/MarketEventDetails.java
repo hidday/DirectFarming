@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 public class MarketEventDetails extends ActionBarActivity {
 
 
+    public static   ArrayList<Bid> bidList;
     private MarketEvent marketEvent;
     public static int idCounter;
     private CustomAdapter adapter;
@@ -36,6 +36,7 @@ public class MarketEventDetails extends ActionBarActivity {
         final int position = extras.getInt("Position");
 
         marketEvent=ActiveEvents.marketEventsList.get(position);
+        this.bidList=marketEvent.getBidList();
 
         event_bids_list=(ListView)findViewById(R.id.active_market_event_list);
         adapter=new CustomAdapter();
@@ -80,8 +81,6 @@ public class MarketEventDetails extends ActionBarActivity {
 
     class CustomAdapter extends BaseAdapter {
         private LayoutInflater inflater;
-        private  ArrayList<Bid> rowList;
-
 
         //constructor for the adapter
         public CustomAdapter(){
@@ -89,19 +88,19 @@ public class MarketEventDetails extends ActionBarActivity {
 
             for(int i=0;i<marketEvent.getBidList().size();i++)
             {
-            rowList.add(marketEvent.getBidList().get(i));
+            bidList.add(marketEvent.getBidList().get(i));
             }
 
         }
 
         @Override
         public int getCount() {
-            return rowList.size();
+            return bidList.size();
         }
 
         @Override
         public Object getItem(int arg0) {
-            return rowList.get(arg0);
+            return bidList.get(arg0);
         }
 
         @Override
@@ -115,7 +114,7 @@ public class MarketEventDetails extends ActionBarActivity {
                 convertView = inflater.inflate(R.layout.bid_list_item_layout, parent,false);
             }
 
-            Bid bid_row = rowList.get(location);
+            Bid bid_row = bidList.get(location);
 
             TextView market_event_name = (TextView) convertView.findViewById(R.id.event_details_headline);
             TextView market_event_date = (TextView) convertView.findViewById(R.id.event_details_subheadline);
