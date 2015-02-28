@@ -23,6 +23,7 @@ public class PlaceBid extends ActionBarActivity {
 
         extras = getIntent().getExtras();
         final int position = extras.getInt("Position");
+        final int eventID = extras.getInt("EventID");
 
         this.bid=MarketEventDetails.bidList.get(position);
 
@@ -31,22 +32,29 @@ public class PlaceBid extends ActionBarActivity {
         final EditText new_price = (EditText) findViewById(R.id.place_bid_new_price);
         Button place_bid_button= (Button) findViewById(R.id.place_bid_button);
 
+
         crop_name.setText(bid.getCrop().toString());
         previous_price.setText(""+bid.getPrice());
 
         place_bid_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final int bidPrice;
+                String str=new_price.getText().toString();
+                if(str.isEmpty())
+                {
+                    bidPrice=999;
+                }
+                else{
+                    bidPrice=Integer.parseInt(new_price.getText().toString());
+                }
 
-                MarketEventDetails.bidList.get(position).placeBid(MainActivity.myName.getName(), Integer.parseInt(new_price.getText().toString()),"need event ID");
+                bid.placeBid(MainActivity.myName, bidPrice, eventID);
 
-                Intent i= new Intent(getApplicationContext(), ActiveEvents.class);
+                Intent i = new Intent(getApplicationContext(), ActiveEvents.class);
                 startActivity(i);
             }
         });
-
-
-
 
     }
 

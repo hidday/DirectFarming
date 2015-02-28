@@ -33,7 +33,7 @@ public class MyAuctions extends ActionBarActivity {
         user_name2 = (TextView)findViewById(R.id.user_name2);
         user_name3 = (TextView)findViewById(R.id.user_name3);
 
-
+        /*
         ArrayList<MarketEvent> marketEventsTest=new ArrayList<>();
 
         marketEventsTest=MainActivity.DB.getAllMarketEvents();
@@ -53,7 +53,7 @@ public class MyAuctions extends ActionBarActivity {
         marketname1=marketTest.getName();
 
         Bid bidTest;
-        bidTest= MainActivity.DB.getBidByCropAndID("Tomato",3);
+       // bidTest= MainActivity.DB.getBidByCropAndID("Tomato",3);
 
         ArrayList<Bid> bidList1=new ArrayList<>();
 
@@ -66,7 +66,7 @@ public class MyAuctions extends ActionBarActivity {
         user_name2.setText(marketname1);
 
         user_name3.setText(marketname1);
-
+        */
 
     }
 

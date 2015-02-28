@@ -224,7 +224,7 @@ public class Model {
 
     ////////////Helper method to covert from MarketEvent to ParseObject /////////////
     public ParseObject marketEventToJson(MarketEvent marketEvent) {
-        ParseObject po = new ParseObject("MarketEvent");
+        ParseObject po = new ParseObject("MarketEvents");
         po.put("ID", marketEvent.getID());
         po.put("Name", marketEvent.getMarket().getName());
         po.put("Date", marketEvent.getDate());
@@ -343,8 +343,9 @@ public class Model {
 
     ////////////Helper method to covert from Bid to ParseObject /////////////
     public ParseObject bidToJson(Bid bid, int marketEventID ){
-        ParseObject po = new ParseObject("Bid");
-        po.put("Crop",bid.getCrop());
+        ParseObject po = new ParseObject("Bids");
+        String str= bid.getCrop().toString();
+        po.put("Crop",bid.getCrop().toString());
         po.put("Bidder", bid.getWinner());
         po.put("Price", bid.getPrice());
         po.put("MarketEventID", marketEventID);

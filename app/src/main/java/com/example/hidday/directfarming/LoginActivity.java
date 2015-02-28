@@ -50,6 +50,7 @@ public class LoginActivity extends Activity {
                             public void done(ParseUser user, ParseException e) {
                                 if (user != null) {
                                     // If user exist and authenticated, send user to Welcome.class
+                                    MainActivity.myName=usernametxt;
                                     Intent intent = new Intent(LoginActivity.this,
                                             Welcome.class);
                                     startActivity(intent);

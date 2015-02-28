@@ -34,6 +34,7 @@ public class MarketEventDetails extends ActionBarActivity {
 
         extras = getIntent().getExtras();
         final int position = extras.getInt("Position");
+        final int eventID = extras.getInt("EventID");
 
         marketEvent=ActiveEvents.marketEventsList.get(position);
 
@@ -48,7 +49,7 @@ public class MarketEventDetails extends ActionBarActivity {
         String dateString= day+"/"+month+"/"+year;
         market_event_date.setText(dateString);
 
-        this.bidList=marketEvent.getBidList();
+        this.bidList=MainActivity.DB.getAllBidsByEvent(position);
 
         event_bids_list=(ListView)findViewById(R.id.event_details_list);
         adapter=new CustomAdapter();
@@ -61,6 +62,7 @@ public class MarketEventDetails extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int i, long l) {
                 market_event_details_intent.putExtra("Position",i);
+                market_event_details_intent.putExtra("EventID",eventID);
                 startActivity(market_event_details_intent);
             }
         });
@@ -139,7 +141,9 @@ public class MarketEventDetails extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(getApplicationContext(), PlaceBid.class);
+
                     i.putExtra("Position", location);
+                    i.putExtra("EventID",marketEvent.getID());
                     startActivity(i);
                 }
             });

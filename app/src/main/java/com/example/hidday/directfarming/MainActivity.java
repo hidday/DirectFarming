@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
     public static Model DB;
 
     /******************************/
-    public static final Farmer myName = new Farmer("Hidday",1,"087534128","yaacov avinu");
+    public static String myName="free";
     //for testing purposes//
     /*******************************/
 
