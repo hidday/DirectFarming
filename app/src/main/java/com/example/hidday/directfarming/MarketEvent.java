@@ -9,12 +9,13 @@ import java.util.GregorianCalendar;
  * Created by hidday on 25/02/2015.
  */
 public class MarketEvent implements Comparable<GregorianCalendar> {
-
+    private int ID;
     private Market market;
     private GregorianCalendar date;
     private ArrayList<Bid> bidList;
 
-    public MarketEvent(Market market, GregorianCalendar date) {
+    public MarketEvent(int ID, Market market, GregorianCalendar date) {
+        this.ID = ID;
         this.market = market;
         this.date = date;
     }
@@ -32,6 +33,10 @@ public class MarketEvent implements Comparable<GregorianCalendar> {
         return market;
     }
 
+    public int getID() {
+        return ID;
+    }
+
     public GregorianCalendar getDate() {
         return date;
     }
@@ -40,9 +45,14 @@ public class MarketEvent implements Comparable<GregorianCalendar> {
         this.market = market;
     }
 
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     public void setDate(GregorianCalendar date) {
         this.date = date;
     }
+
 
     @Override
     public boolean equals(Object o) {

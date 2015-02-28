@@ -1,10 +1,8 @@
 package com.example.hidday.directfarming;
 
-import android.app.usage.UsageEvents;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.style.TtsSpan;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -13,14 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 
@@ -40,13 +35,11 @@ public class ActiveEvents extends ActionBarActivity {
 
         idCounter=0;
 
-        //for testing purpouse
-        /*
         if(flagFirst==true){
             createInitialEventList();
             flagFirst=false;
         }
-        */
+
 
 
         market_event_list=(ListView)findViewById(R.id.active_market_event_list);
@@ -69,8 +62,6 @@ public class ActiveEvents extends ActionBarActivity {
 
     private void createInitialEventList() {
 
-
-        /*
         GregorianCalendar date1= new GregorianCalendar (2015,3,14);
         GregorianCalendar date2= new GregorianCalendar (2015,5,2);
         GregorianCalendar date3= new GregorianCalendar (2015,11,23);
@@ -83,7 +74,6 @@ public class ActiveEvents extends ActionBarActivity {
         bidList.add(new Bid(Crop.Tomato));
         marketEventsList.get(1).setBidList(bidList);
         marketEventsList.get(2).setBidList(bidList);
-        */
     }
 
     @Override

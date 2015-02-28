@@ -2,6 +2,7 @@ package com.example.hidday.directfarming;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
@@ -12,7 +13,6 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
  * Created by hidday on 28/02/2015.
  */
@@ -81,9 +81,11 @@ public class Model {
         return markets;
     }
 
-    /////////////CallBack Interface //////////////////
+    /*/////////////CallBack Interface //////////////////
     interface GetAllClbck{
         public void done(List<Market> markets);
+
+
     }
     /////////////Find In Background Operation with CallBack//////////////////
     public void getAllMarkets2(GetAllClbck clbck){
@@ -109,7 +111,7 @@ public class Model {
         });
         Log.d("HA", "Model Getting all markets -after findInBackground ()" );
 
-    }
+    }*/
 
     ////////////Helper method to covert from ParseObject to Student //////////////
     public Market jsonToMarket(ParseObject p){
@@ -166,7 +168,7 @@ public class Model {
 
     }
 
-     //Retrieve the object by id
+     //Retrieve the object by name
     Market s;
     public Market getMarketByName(String Name){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Markets");
@@ -207,7 +209,115 @@ public class Model {
 
     }
 
+/////////////No Background Operation//////////////////
+
+    public ArrayList<MarketEvent> getAllMarketEvents(){
+        Log.d("HA", "Model - Getting all marketEvents");
+        ArrayList<MarketEvent> marketEvents = new ArrayList<MarketEvent>();
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("MarketEvents");
+        try{
+            List<ParseObject> objects=query.find() ;
+            if(objects!=null){
+                Log.d("HA", "Model - Getting all marketEvents - done (), objects.size()=" +objects.size() );
+
+                for(ParseObject o: objects){
+                    marketEvents.add(jsonToMarketEvent(o));
+                }
+                Log.d("HA", "Model - after coversion marketEvents.size()=" +marketEvents.size());
+            }
+        }
+        catch(ParseException e){
+            e.printStackTrace();
+            Log.e("HA", "Model - query.find() exeption"+e.toString());
+        }
+        Log.d("HA", "Model - Getting all markets finished" );
+
+        return marketEvents;
+    }
+    ////////////Helper method to covert from ParseObject to Student //////////////
+    public MarketEvent jsonToMarketEvent(ParseObject p){
+        MarketEvent marketEvent= new MarketEvent(p.getInt("ID"),p.getString("Name"),p.getDate("Date"));
+        Log.d("HA", "Model - jsonToMarket" +marketEvent );
+        return marketEvent;
+    }
+
+    public void deleteMarketEvent(int ID){
+        Log.d("HA", "Model.deleteMarketEvnet index= " +ID);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("MarketEvents");
+        query.whereEqualTo("ID", ID);
+        try{
+            List<ParseObject> marketEventsList=query.find();
+            if (marketEventsList.size()>0) {
+                Log.d("HA", "Model.deleteMarketEvent Retrieved " + marketEventsList.size() + " marketEvnet");
+                marketEventsList.get(0).deleteInBackground();
+
+            }
+        }
+        catch (ParseException e1) {
+            e1.printStackTrace();
+            Log.e("HA", "Model.deleteMarketEvent Error: " + e1.getMessage());
+        }
+
+
+    }
+
+    //Retrieve the object by id
+    MarketEvent s;
+    public MarketEvent getMarketEventByID(int ID){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("MarketEvents");
+        query.whereEqualTo("ID", ID);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> marketEventList, ParseException e) {
+                if (e == null) {
+                    Log.d("HA", "Model.getMarketByName Retrieved " + marketEventList.size() + " markets");
+                    s=marketEventToJson(marketEventList.get(0));
+
+                } else {
+                    Log.d("HA", "Model.getMarketByName Error: " + e.getMessage());
+                }
+            }
+        });
+        return s;
+    }
 
 
 
-}
+    public void editMarketEvent(MarketEvent s) {
+        final MarketEvent s1 = s;
+        ParseObject MarketEventToEdit = null;
+        Log.d("HA", "Model.editMarketEvent index= " + s1.getMarket().getName());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("MarketEvents");
+        query.whereEqualTo("Is", s.getMarket().getName());
+        try {
+            List<ParseObject> marketEventList = query.find();
+            if (marketEventList.size() > 0) {
+                Log.d("HA", "Model.editMarketEvent Retrieved " + marketEventList.size() + " students");
+                MarketEventToEdit = marketEventList.get(0);
+                MarketEventToEdit.put("ID", s1.getID());
+                MarketEventToEdit.put("Name", s1.getMarket().getName());
+                MarketEventToEdit.put("Date", s1.getDate());
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+        public void addMarketEvent(MarketEvent marketEvent){
+            Log.d("DB","Model addMarketEvent "+marketEvent);
+            ParseObject newMarkeEvent = marketEventToJson(marketEvent);
+            try {
+                newMarkeEvent.save();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+    public ParseObject marketEventToJson(MarketEvent marketEvent){
+        ParseObject po = new ParseObject("marketEvent");
+        po.put("ID",marketEvent.getID());
+        po.put("Name",marketEvent.getMarket().getName());
+        po.put("Date", marketEvent.getDate();
+        return po;
+    }
+
+    }
