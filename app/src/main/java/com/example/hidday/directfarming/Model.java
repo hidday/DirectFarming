@@ -42,12 +42,12 @@ public class Model {
 
     }
 
-    public void addStudent(Student st){
-        Log.d("HY","Model addStudent "+st);
-        ParseObject newStudent=studentToJson(st);
+    public void addMarket(Market market){
+        Log.d("DB","Model addMarket "+market);
+        ParseObject newMarket=marketToJson(market);
         //		newStudent.saveInBackground();
         try {
-            newStudent.save();
+            newMarket.save();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -56,39 +56,33 @@ public class Model {
 
 
     /////////////No Background Operation//////////////////
-    public ArrayList<Student> getAllStudents(){
-        Log.d("HY", "Model - Getting all students");
-        ArrayList<Student> students = new ArrayList<Student>();
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Student");
+    public ArrayList<Market> getAllMarkets(){
+        Log.d("HA", "Model - Getting all markets");
+        ArrayList<Market> markets = new ArrayList<Market>();
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Markets");
         try{
             List<ParseObject> objects=query.find() ;
             if(objects!=null){
-                Log.d("HY", "Model - Getting all students - done (), objects.size()=" +objects.size() );
+                Log.d("HA", "Model - Getting all markets - done (), objects.size()=" +objects.size() );
 
                 for(ParseObject o: objects){
-                    students.add(jsonToStudent(o));
+                    markets.add(jsonToMarket(o));
                 }
-                Log.d("HY", "Model - after coversion students.size()=" +students.size());
+                Log.d("HA", "Model - after coversion markets.size()=" +markets.size());
             }
         }
         catch(ParseException e){
             e.printStackTrace();
-            Log.e("HY", "Model - query.find() exeption"+e.toString());
+            Log.e("HA", "Model - query.find() exeption"+e.toString());
         }
-        Log.d("HY", "Model - Getting all students finished" );
-        // This delay is added to demonstrate how the UI looks in cases of slow download
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return students;
+        Log.d("HA", "Model - Getting all markets finished" );
+
+        return markets;
     }
 
     /////////////CallBack Interface //////////////////
     interface GetAllClbck{
-        public void done(List<Student> students);
+        public void done(List<Market> markets);
     }
     /////////////Find In Background Operation with CallBack//////////////////
     public void getAllStudents(GetAllClbck clbck){
@@ -117,19 +111,19 @@ public class Model {
     }
 
     ////////////Helper method to covert from ParseObject to Student //////////////
-    public Student jsonToStudent(ParseObject p){
-        Student s= new Student(p.getInt("index"),p.getString("name"),p.getInt("phone"),p.getBoolean("female"));
-        Log.d("HY", "Model - jsonToStudent" +s );
-        return s;
+    public Market jsonToMarket(ParseObject p){
+        Market market= new Market(p.getString("Name"),p.getString("Phone"),p.getString("Address"),p.getString("Manager"));
+        Log.d("HA", "Model - jsonToMarket" +market );
+        return market;
     }
 
     ////////////Helper method to covert from Student to ParseObject /////////////
-    public ParseObject studentToJson(Student st){
-        ParseObject po = new ParseObject("Student");
-        po.put("index",st.getIndex());
-        po.put("name", st.getName());
-        po.put("phone", st.getPhone());
-        po.put("female", st.isFemale());
+    public ParseObject marketToJson(Market market){
+        ParseObject po = new ParseObject("Market");
+        po.put("Name",market.getName());
+        po.put("Phone", market.getPhone());
+        po.put("Address", market.getAddress());
+        po.put("Manager", market.getManager());
         return po;
     }
 
