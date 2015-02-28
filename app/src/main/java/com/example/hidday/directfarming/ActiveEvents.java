@@ -1,10 +1,8 @@
 package com.example.hidday.directfarming;
 
-import android.app.usage.UsageEvents;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.style.TtsSpan;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,18 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 
 public class ActiveEvents extends ActionBarActivity {
 
     public static ArrayList<MarketEvent> marketEventsList=new ArrayList<>();
+
     public static int idCounter;
     private ListView market_event_list;
     private CustomAdapter adapter;

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -57,19 +58,16 @@ public class Welcome extends Activity {
 
                                       public void onClick(View arg0) {
 
-                                          Intent intent = new Intent(Welcome.this, ActiveEvents.class);
+                                          Intent intent = new Intent(Welcome.this,
+                                                  MyAuctions.class);
                                           startActivity(intent);
+                                          Toast.makeText(getApplicationContext(),
+                                                  "Successfully Logged in",
+                                                  Toast.LENGTH_LONG).show();
+                                          finish();
                                       }
                                   });
-        history.setOnClickListener(new OnClickListener() {
 
-            public void onClick(View arg0) {
-
-                Intent intent = new Intent(Welcome.this, MyAuctions.class);
-                startActivity(intent);
-            }
-
-        });
 
 
 
