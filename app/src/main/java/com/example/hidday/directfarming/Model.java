@@ -270,18 +270,40 @@ public class Model {
     /////////////No Background Operation//////////////////
 
     class BidPlusEvent{
-        Bid bid;
-        MarketEvent marketEvent;
+        private Bid bid;
+        private MarketEvent marketEvent;
+
+        public Bid getBid() {
+            return bid;
+        }
+
+        public void setBid(Bid bid) {
+            this.bid = bid;
+        }
+
+        public MarketEvent getMarketEvent() {
+            return marketEvent;
+        }
+
+        public void setMarketEvent(MarketEvent marketEvent) {
+            this.marketEvent = marketEvent;
+        }
 
         BidPlusEvent(Bid bid, MarketEvent marketEvent) {
             this.bid = bid;
             this.marketEvent = marketEvent;
+
         }
     }
 
     public ArrayList<Bid> getAllBids(){
         ArrayList<Bid> allBids = new ArrayList<Bid>();
+        ArrayList<BidPlusEvent> allBidsPlusEvents = getAllBidPlusEvent();
 
+        for (int i = 0; i <allBidsPlusEvents.size(); i++) {
+                allBids.add(allBidsPlusEvents.get(i).getBid());
+        }
+        return allBids;
     }
 
     public ArrayList<BidPlusEvent> getAllBidPlusEvent(){
@@ -325,7 +347,7 @@ public class Model {
         po.put("Crop",bid.getCrop());
         po.put("Bidder", bid.getWinner());
         po.put("Price", bid.getPrice());
-        po.put("MarketEventID",marketEventID);
+        po.put("MarketEventID", marketEventID);
         return po;
     }
 
@@ -334,16 +356,29 @@ public class Model {
     public Bid getBidByCropAndEventID(String crop, int eventId){
         MarketEvent marketEvent=getMarketEventByID(eventId);
         Bid noBid = new Bid(crop,"no one",999);
-        ArrayList<Bid> allBids = getAllBids();
+        ArrayList<BidPlusEvent> allBids = getAllBidPlusEvent();
 
         for (int i = 0; i < allBids.size(); i++) {
-            if (allBids.get(i).()==id) {
-                return allMarketEvents.get(i);
+            if (allBids.get(i).getBid().getCrop().equals(crop)&&allBids.get(i).getMarketEvent().getID()==eventId) {
+                return allBids.get(i).getBid();
             }
         }
 
-        return noMarketEvent;
-        return bid;
+        return noBid;
+    }
+
+    public ArrayList<Bid> getAllBidsByEvent(int eventId){
+
+        ArrayList<Bid> bids = new ArrayList<Bid>();
+
+        ArrayList<BidPlusEvent> allBids = getAllBidPlusEvent();
+
+        for (int i = 0; i < allBids.size(); i++) {
+            if (allBids.get(i).getMarketEvent().getID()==eventId) {
+                bids.add(allBids.get(i).getBid());
+            }
+        }
+        return bids;
     }
 
 

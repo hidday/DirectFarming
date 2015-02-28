@@ -38,7 +38,7 @@ public class PlaceBid extends ActionBarActivity {
             @Override
             public void onClick(View v) {
 
-                MarketEventDetails.bidList.get(position).placeBid(MainActivity.myName.getName(), Integer.parseInt(new_price.getText().toString()));
+                MarketEventDetails.bidList.get(position).placeBid(MainActivity.myName.getName(), Integer.parseInt(new_price.getText().toString()),"need event ID");
 
                 Intent i= new Intent(getApplicationContext(), ActiveEvents.class);
                 startActivity(i);
