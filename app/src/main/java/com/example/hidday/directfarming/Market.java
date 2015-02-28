@@ -1,13 +1,13 @@
 package com.example.hidday.directfarming;
 
-import android.location.Address;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneNumberUtils;
+
+import com.parse.ParseObject;
 
 /**
  * Created by hidday on 25/02/2015.
  */
-public class Market {
+public class Market extends ParseObject {
     private String name;
     private String phone;
     private String address;

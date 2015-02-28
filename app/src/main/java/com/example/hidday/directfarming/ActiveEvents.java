@@ -67,6 +67,7 @@ public class ActiveEvents extends ActionBarActivity {
 
     private void createInitialEventList() {
 
+
         GregorianCalendar date1= new GregorianCalendar (2015,3,14);
         GregorianCalendar date2= new GregorianCalendar (2015,5,2);
         GregorianCalendar date3= new GregorianCalendar (2015,11,23);

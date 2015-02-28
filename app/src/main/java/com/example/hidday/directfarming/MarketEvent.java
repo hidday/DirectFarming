@@ -3,7 +3,6 @@ package com.example.hidday.directfarming;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -19,6 +18,7 @@ public class MarketEvent implements Comparable<GregorianCalendar> {
         this.market = market;
         this.date = date;
     }
+
 
     public ArrayList<Bid> getBidList() {
         return bidList;

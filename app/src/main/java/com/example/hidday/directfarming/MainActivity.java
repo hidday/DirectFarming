@@ -6,16 +6,13 @@ package com.example.hidday.directfarming;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.telephony.PhoneNumberUtils;
 
-import com.parse.Parse;
-import com.parse.ParseACL;
 import com.parse.ParseAnonymousUtils;
 import com.parse.ParseUser;
 
 
 public class MainActivity extends Activity {
-
+    private Model DB;
 
     /******************************/
     public static final Farmer myName = new Farmer("Hidday",1,"087534128","yaacov avinu");
@@ -25,13 +22,9 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Add your initialization code here
-        Parse.initialize(this, "zlDQOcXVpC2a3exWmuvGl3FcWGvsmpn0MgFC7i1D", "I29kas1FRUnzesQxtqegGlpBEoHUDMhmft5QtCDY");
-
-        ParseUser.enableAutomaticUser();
-        ParseACL defaultACL = new ParseACL();
 
 
+        DB=Model.getInstance(this);
 
         // Determine whether the current user is an anonymous user
         if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {

@@ -85,28 +85,28 @@ public class Model {
         public void done(List<Market> markets);
     }
     /////////////Find In Background Operation with CallBack//////////////////
-    public void getAllStudents(GetAllClbck clbck){
+    public void getAllMarkets(GetAllClbck clbck){
         final GetAllClbck getAllListener=clbck;
 
-        Log.d("HY", "Model - Getting all students");
+        Log.d("HA", "Model - Getting all markets");
 
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Student");
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Markets");
 
         query.findInBackground(new FindCallback<ParseObject>() {
 
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                Log.d("HY", "Model - Getting all students - done ()" );
-                List<Student> students = new ArrayList<Student>();
+                Log.d("HA", "Model - Getting all markets - done ()" );
+                List<Market> markets = new ArrayList<Market>();
                 for(ParseObject o: objects){
-                    students.add(jsonToStudent(o));
+                    markets.add(jsonToMarket(o));
                 }
-                getAllListener.done(students);
-                Log.d("HY", "Model after getAllListener.done()" );
+                getAllListener.done(markets);
+                Log.d("HA", "Model after getAllListener.done()" );
             }
 
         });
-        Log.d("HY", "Model Getting all students -after findInBackground ()" );
+        Log.d("HA", "Model Getting all markets -after findInBackground ()" );
 
     }
 
@@ -128,20 +128,22 @@ public class Model {
     }
 
 
-    public void editStudent(Student s) {
-        final Student s1=s;
-        ParseObject studentToEdit=null;
-        Log.d("HY", "Model.editStudent index= " +s1.getIndex());
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Student");
-        query.whereEqualTo("index", s.getIndex());
+    public void editMarket(Market s) {
+        final Market s1=s;
+        ParseObject marketToEdit=null;
+        Log.d("HA", "Model.editStudent index= " +s1.getName());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Markets");
+        query.whereEqualTo("Name", s.getName());
         try{
-            List<ParseObject> studentsList=query.find();
-            if (studentsList.size()>0) {
-                Log.d("HY", "Model.editStudent Retrieved " + studentsList.size() + " students");
-                studentToEdit=studentsList.get(0);
-                studentToEdit.put("name",s1.getName());
-                studentToEdit.put("phone",s1.getPhone());
-                studentToEdit.put("female",s1.isFemale());
+            List<ParseObject> marketList=query.find();
+            if (marketList.size()>0) {
+                Log.d("HA", "Model.editStudent Retrieved " + marketList.size() + " students");
+                marketToEdit=marketList.get(0);
+                marketToEdit.put("Name",s1.getName());
+                marketToEdit.put("Phone",s1.getPhone());
+                marketToEdit.put("Address",s1.getAddress());
+                marketToEdit.put("Manager",s1.getManager());
+
             }
         }
         catch(ParseException e){
@@ -149,7 +151,7 @@ public class Model {
         }
 
 
-        studentToEdit.saveInBackground();
+        marketToEdit.saveInBackground();
 
 //		try {
 //			studentToEdit.save();
@@ -163,19 +165,19 @@ public class Model {
 
     }
 
-    // Retrieve the object by id
-    Student s;
-    public Student getStudentById(int id){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Student");
-        query.whereEqualTo("_id", id);
+     //Retrieve the object by id
+    Market s;
+    public Market getMarketByName(String Name){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Markets");
+        query.whereEqualTo("_Name", Name);
         query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> studentsList, ParseException e) {
+            public void done(List<ParseObject> marketList, ParseException e) {
                 if (e == null) {
-                    Log.d("HY", "Model.getStudentById Retrieved " + studentsList.size() + " students");
-                    s=jsonToStudent(studentsList.get(0));
+                    Log.d("HA", "Model.getMarketByName Retrieved " + marketList.size() + " markets");
+                    s=jsonToMarket(marketList.get(0));
 
                 } else {
-                    Log.d("HY", "Model.getStudentById Error: " + e.getMessage());
+                    Log.d("HA", "Model.getMarketByName Error: " + e.getMessage());
                 }
             }
         });
@@ -184,21 +186,21 @@ public class Model {
 
 
 
-    public void deleteStudent(int id){
-        Log.d("HY", "Model.deleteStudent index= " +id);
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Student");
-        query.whereEqualTo("index", id);
+    public void deleteMarket(String Name){
+        Log.d("HA", "Model.deleteMarket index= " +Name);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Markets");
+        query.whereEqualTo("index", Name);
         try{
-            List<ParseObject> studentsList=query.find();
-            if (studentsList.size()>0) {
-                Log.d("HY", "Model.deleteStudent Retrieved " + studentsList.size() + " students");
-                studentsList.get(0).deleteInBackground();
+            List<ParseObject> marketList=query.find();
+            if (marketList.size()>0) {
+                Log.d("HA", "Model.deleteMarket Retrieved " + marketList.size() + " market");
+                marketList.get(0).deleteInBackground();
 
             }
         }
         catch (ParseException e1) {
             e1.printStackTrace();
-            Log.e("HY", "Model.deleteStudent Error: " + e1.getMessage());
+            Log.e("HY", "Model.deleteMarket Error: " + e1.getMessage());
         }
 
 
