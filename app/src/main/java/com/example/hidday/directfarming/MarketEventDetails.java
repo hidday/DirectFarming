@@ -115,7 +115,7 @@ public class MarketEventDetails extends ActionBarActivity {
         }
 
         @Override
-        public View getView(int location, View convertView, ViewGroup parent) {
+        public View getView(final int location, View convertView, ViewGroup parent) {
             if (convertView == null){
                 convertView = inflater.inflate(R.layout.bid_list_item_layout, parent,false);
             }
@@ -138,7 +138,8 @@ public class MarketEventDetails extends ActionBarActivity {
             place_bid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i= new Intent(getApplicationContext(), PlaceBid.class);
+                    Intent i = new Intent(getApplicationContext(), PlaceBid.class);
+                    i.putExtra("Position", location);
                     startActivity(i);
                 }
             });

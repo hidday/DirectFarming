@@ -32,7 +32,7 @@ public class PlaceBid extends ActionBarActivity {
         Button place_bid_button= (Button) findViewById(R.id.place_bid_button);
 
         crop_name.setText(bid.getCrop().toString());
-        previous_price.setText(bid.getPrice());
+        previous_price.setText(""+bid.getPrice());
 
         place_bid_button.setOnClickListener(new View.OnClickListener() {
             @Override

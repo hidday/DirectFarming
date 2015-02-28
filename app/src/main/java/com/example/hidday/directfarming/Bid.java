@@ -18,6 +18,8 @@ public class Bid {
     private SimpleArrayMap<String,Integer> biddingHistory;
 
     public Bid(Crop crop, String winner, int price) {
+        this.biddingHistory=new SimpleArrayMap<>();
+
         this.crop = crop;
         this.winner = winner;
         this.price = price;
@@ -26,6 +28,8 @@ public class Bid {
     }
 
     public Bid(Crop crop) {
+        this.biddingHistory=new SimpleArrayMap<>();
+
         this.crop = crop;
         this.price = 9999;
         this.winner= "Empty";

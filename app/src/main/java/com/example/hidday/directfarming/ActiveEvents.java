@@ -31,6 +31,8 @@ public class ActiveEvents extends ActionBarActivity {
     private ListView market_event_list;
     private CustomAdapter adapter;
 
+    private static boolean flagFirst=true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,12 @@ public class ActiveEvents extends ActionBarActivity {
 
         idCounter=0;
 
-        createInitialEventList();
+        if(flagFirst==true){
+            createInitialEventList();
+            flagFirst=false;
+        }
+
+
 
         market_event_list=(ListView)findViewById(R.id.active_market_event_list);
         adapter=new CustomAdapter();
