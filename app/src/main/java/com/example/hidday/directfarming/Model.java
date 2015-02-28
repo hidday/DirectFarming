@@ -81,6 +81,7 @@ public class Model {
         return markets;
     }
 
+    /*
     /////////////CallBack Interface //////////////////
     interface GetAllClbck{
         public void done(List<Market> markets);
@@ -110,6 +111,7 @@ public class Model {
         Log.d("HA", "Model Getting all markets -after findInBackground ()" );
 
     }
+    */
 
     ////////////Helper method to covert from ParseObject to Student //////////////
     public Market jsonToMarket(ParseObject p){
@@ -154,35 +156,25 @@ public class Model {
 
         marketToEdit.saveInBackground();
 
-//		try {
-//			studentToEdit.save();
-//
-//		} catch (ParseException e1) {
-//			e1.printStackTrace();
-//			Log.e("HY", "Model.editStudent Error: " + e1.getMessage());
-//		}
-
-
-
     }
 
      //Retrieve the object by id
-    Market s;
+    Market market;
     public Market getMarketByName(String Name){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Markets");
-        query.whereEqualTo("_Name", Name);
+        query.whereEqualTo("Name", Name);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> marketList, ParseException e) {
                 if (e == null) {
                     Log.d("HA", "Model.getMarketByName Retrieved " + marketList.size() + " markets");
-                    s=jsonToMarket(marketList.get(0));
+                    market=jsonToMarket(marketList.get(0));
 
                 } else {
                     Log.d("HA", "Model.getMarketByName Error: " + e.getMessage());
                 }
             }
         });
-        return s;
+        return market;
     }
 
 
@@ -207,6 +199,141 @@ public class Model {
 
     }
 
+
+
+
+    /*****************************************************/
+    //Bids retreving methods
+    /*****************************************************/
+
+
+
+    public void addBid(Bid bid){
+        Log.d("DB", "Model addBid " + bid);
+        ParseObject newBid=bidToJson(bid);
+        //		newStudent.saveInBackground();
+        try {
+            newBid.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /////////////No Background Operation//////////////////
+
+    public ArrayList<Bid> getAllBids(){
+        Log.d("HA", "Model - Getting all bids");
+        ArrayList<Bid> bids = new ArrayList<Bid>();
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Bids");
+        try{
+            List<ParseObject> objects=query.find() ;
+            if(objects!=null){
+                Log.d("HA", "Model - Getting all bids - done (), objects.size()=" +objects.size() );
+
+                for(ParseObject o: objects){
+                    bids.add(jsonToBid(o));
+                }
+                Log.d("HA", "Model - after coversion bids.size()=" +bids.size());
+            }
+        }
+        catch(ParseException e){
+            e.printStackTrace();
+            Log.e("HA", "Model - query.find() exeption"+e.toString());
+        }
+        Log.d("HA", "Model - Getting all bids finished" );
+
+        return bids;
+    }
+
+
+
+    ////////////Helper method to covert from ParseObject to Bid //////////////
+    public Bid jsonToBid(ParseObject p){
+
+        Bid bid= new Bid(p.getString("Crop"),p.getString("Bidder"),p.getInt("Price"));
+        Log.d("HA", "Model - jsonToBid" +bid );
+        return bid;
+    }
+
+    ////////////Helper method to covert from Bid to ParseObject /////////////
+    public ParseObject bidToJson(Bid bid){
+        ParseObject po = new ParseObject("Bid");
+        po.put("Crop",bid.getCrop());
+        po.put("Bidder", bid.getWinner());
+        po.put("Price", bid.getPrice());
+        return po;
+    }
+
+
+    public void editBid(Bid bid,MarketEvent marketEvent) {
+        final Bid bid1=bid;
+        ParseObject bidToEdit=null;
+        Log.d("HA", "Model.editStudent index= " +bid.getCrop());
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Bids");
+        query.whereEqualTo("Crop", bid.getCrop());
+        query.whereEqualTo("MarketEventID",marketEvent.getID());
+        try{
+            List<ParseObject> bidList=query.find();
+            if (bidList.size()>0) {
+                Log.d("HA", "Model.editStudent Retrieved " + bidList.size() + " students");
+                bidToEdit=bidList.get(0);
+                bidToEdit.put("Crop",bid1.getCrop());
+                bidToEdit.put("Price",bid1.getPrice());
+
+                //bidder and winner are not the same- to be fixed
+                bidToEdit.put("Bidder",bid1.getWinner());
+                bidToEdit.put("MarketEventID",marketEvent.getID());
+            }
+        }
+        catch(ParseException e){
+            e.printStackTrace();
+        }
+
+
+        bidToEdit.saveInBackground();
+    }
+
+    //Retrieve the object by id
+    Bid bid;
+    public Bid getBidByCropAndID(String crop, int eventId){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Bids");
+        query.whereEqualTo("Crop", crop);
+        query.whereEqualTo("MarketEventID", eventId);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> bidList, ParseException e) {
+                if (e == null) {
+                    Log.d("HA", "Model.getBidByName Retrieved " + bidList.size() + " bids");
+                    bid=jsonToBid(bidList.get(0));
+
+                } else {
+                    Log.d("HA", "Model.getBidByName Error: " + e.getMessage());
+                }
+            }
+        });
+        return bid;
+    }
+
+
+
+    public void deleteBid(String Name) {
+        Log.d("HA", "Model.deleteBid index= " + Name);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Bids");
+        query.whereEqualTo("index", Name);
+        try {
+            List<ParseObject> bidList = query.find();
+            if (bidList.size() > 0) {
+                Log.d("HA", "Model.deleteBid Retrieved " + bidList.size() + " bid");
+                bidList.get(0).deleteInBackground();
+
+            }
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+            Log.e("HA", "Model.deleteBid Error: " + e1.getMessage());
+        }
+
+    }
 
 
 

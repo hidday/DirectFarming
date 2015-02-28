@@ -49,6 +49,7 @@ public class ActiveEvents extends ActionBarActivity {
         */
 
 
+
         market_event_list=(ListView)findViewById(R.id.active_market_event_list);
         adapter=new CustomAdapter();
         market_event_list.setAdapter(adapter);

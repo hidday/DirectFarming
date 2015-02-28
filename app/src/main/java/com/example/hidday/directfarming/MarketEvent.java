@@ -13,12 +13,22 @@ public class MarketEvent implements Comparable<GregorianCalendar> {
     private Market market;
     private GregorianCalendar date;
     private ArrayList<Bid> bidList;
+    private int ID;
 
-    public MarketEvent(Market market, GregorianCalendar date) {
+    public MarketEvent(Market market, GregorianCalendar date, int id) {
+        this.bidList=new ArrayList<>();
         this.market = market;
         this.date = date;
+        this.ID=id;
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     public ArrayList<Bid> getBidList() {
         return bidList;

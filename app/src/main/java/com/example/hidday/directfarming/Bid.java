@@ -27,6 +27,17 @@ public class Bid {
         this.biddingHistory.put(winner,price);
     }
 
+
+    public Bid(String crop, String winner, int price) {
+        this.biddingHistory=new SimpleArrayMap<>();
+
+        this.crop = Crop.valueOf(crop);
+        this.winner = winner;
+        this.price = price;
+
+        this.biddingHistory.put(winner,price);
+    }
+
     public Bid(Crop crop) {
         this.biddingHistory=new SimpleArrayMap<>();
 
