@@ -24,6 +24,7 @@ public class Welcome extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         // Get the view from singleitemview.xml
         setContentView(R.layout.welcome);
 

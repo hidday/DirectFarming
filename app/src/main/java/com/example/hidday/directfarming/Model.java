@@ -56,6 +56,7 @@ public class Model {
 
 
     /////////////No Background Operation//////////////////
+
     public ArrayList<Market> getAllMarkets(){
         Log.d("HA", "Model - Getting all markets");
         ArrayList<Market> markets = new ArrayList<Market>();
@@ -85,7 +86,7 @@ public class Model {
         public void done(List<Market> markets);
     }
     /////////////Find In Background Operation with CallBack//////////////////
-    public void getAllMarkets(GetAllClbck clbck){
+    public void getAllMarkets2(GetAllClbck clbck){
         final GetAllClbck getAllListener=clbck;
 
         Log.d("HA", "Model - Getting all markets");
@@ -200,7 +201,7 @@ public class Model {
         }
         catch (ParseException e1) {
             e1.printStackTrace();
-            Log.e("HY", "Model.deleteMarket Error: " + e1.getMessage());
+            Log.e("HA", "Model.deleteMarket Error: " + e1.getMessage());
         }
 
 

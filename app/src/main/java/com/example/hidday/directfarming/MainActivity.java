@@ -12,7 +12,7 @@ import com.parse.ParseUser;
 
 
 public class MainActivity extends Activity {
-    private Model DB;
+    public static Model DB;
 
     /******************************/
     public static final Farmer myName = new Farmer("Hidday",1,"087534128","yaacov avinu");

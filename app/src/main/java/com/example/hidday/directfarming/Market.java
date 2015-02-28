@@ -7,7 +7,7 @@ import com.parse.ParseObject;
 /**
  * Created by hidday on 25/02/2015.
  */
-public class Market extends ParseObject {
+public class Market  {
     private String name;
     private String phone;
     private String address;
@@ -18,9 +18,7 @@ public class Market extends ParseObject {
         this.address = address;
         this.manager = manager;
 
-        PhoneNumberUtils phoneFormat= new PhoneNumberUtils();
-
-        this.phone = phoneFormat.formatNumber(phone);
+        this.phone = phone;
     }
 
     public String getName() {

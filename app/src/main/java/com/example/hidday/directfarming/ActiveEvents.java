@@ -40,11 +40,13 @@ public class ActiveEvents extends ActionBarActivity {
 
         idCounter=0;
 
+        //for testing purpouse
+        /*
         if(flagFirst==true){
             createInitialEventList();
             flagFirst=false;
         }
-
+        */
 
 
         market_event_list=(ListView)findViewById(R.id.active_market_event_list);
@@ -68,6 +70,7 @@ public class ActiveEvents extends ActionBarActivity {
     private void createInitialEventList() {
 
 
+        /*
         GregorianCalendar date1= new GregorianCalendar (2015,3,14);
         GregorianCalendar date2= new GregorianCalendar (2015,5,2);
         GregorianCalendar date3= new GregorianCalendar (2015,11,23);
@@ -80,6 +83,7 @@ public class ActiveEvents extends ActionBarActivity {
         bidList.add(new Bid(Crop.Tomato));
         marketEventsList.get(1).setBidList(bidList);
         marketEventsList.get(2).setBidList(bidList);
+        */
     }
 
     @Override

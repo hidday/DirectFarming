@@ -11,16 +11,16 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 public class MyAuctions extends ActionBarActivity {
-    List<ParseObject> Avri;
+
     TextView user_name1;
     TextView user_name2;
     TextView user_name3;
-    Date date;
     String marketname1;
 
 
@@ -33,41 +33,23 @@ public class MyAuctions extends ActionBarActivity {
         user_name2 = (TextView)findViewById(R.id.user_name2);
         user_name3 = (TextView)findViewById(R.id.user_name3);
 
+        Market marketTest;
+        ArrayList<Market> marketList1=new ArrayList<>();
 
-        final ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("MarketEvents");
-        query.findInBackground (new FindCallback<ParseObject>(){
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null) {
-                    for (int i = 0; i < objects.size(); i++) {
-                        if (objects.get(i) != null) {
-                            ParseObject p = objects.get(0);
-                            marketname1 = p.getString("Name");
-                            user_name1.setText(marketname1);
+        marketList1= MainActivity.DB.getAllMarkets();
 
-                            ParseObject z = objects.get(1);
-                            marketname1 = z.getString("Name");
-                            user_name2.setText(marketname1);
+        marketTest=marketList1.get(1);
 
-                            ParseObject q = objects.get(2);
-                            marketname1 = q.getString("Name");
-                            user_name3.setText(marketname1);
+        marketname1=marketTest.getName();
 
-                            Log.d("user_Name", "Retrieved " + objects.size() + " Users");
-                        } else {
-                            Log.d("user_Name", "Error: " + e.getMessage());
-                        }
-                    }}
-                else {
-                    Toast.makeText(getApplicationContext(),
-                            "not working",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-        }
-        );
+        user_name1.setText(marketname1+"oved");
 
+        user_name2.setText(marketname1);
+
+        user_name3.setText(marketname1);
 
 
     }
-    }
+
+
+   }
