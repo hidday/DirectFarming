@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class MarketEventDetails extends ActionBarActivity {
 
 
+    private int chosenEvent;
     public static   ArrayList<Bid> bidList;
     private MarketEvent marketEvent;
     public static int idCounter;
@@ -35,6 +36,7 @@ public class MarketEventDetails extends ActionBarActivity {
         extras = getIntent().getExtras();
         final int position = extras.getInt("Position");
         final int eventID = extras.getInt("EventID");
+        chosenEvent=eventID;
 
         marketEvent=ActiveEvents.marketEventsList.get(position);
 
@@ -70,6 +72,16 @@ public class MarketEventDetails extends ActionBarActivity {
 
     }
 
+    private void refreshData(){
+        this.bidList=MainActivity.DB.getAllBidsByEvent(chosenEvent);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshData();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -60,6 +60,10 @@ public class ActiveEvents extends ActionBarActivity {
 
     }
 
+    private void refreshData(){
+        marketEventsList=MainActivity.DB.getAllMarketEvents();
+    }
+
 
     private void createInitialEventList() {
 
@@ -87,7 +91,9 @@ public class ActiveEvents extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        refreshData();
         market_event_list.setAdapter(adapter);
+
     }
 
     @Override
