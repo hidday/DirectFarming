@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:id="@+id/event_list_item"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp">
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Event Location"
         android:id="@+id/eventlist_event_location"
         android:layout_gravity="center_vertical|left"
-        android:layout_alignTop="@+id/eventlist_event_date"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
+        android:background="#7556df54"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Event Date"
         android:id="@+id/eventlist_event_date"
         android:layout_gravity="center_vertical|right"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/imageButton"
-        android:layout_toStartOf="@+id/imageButton" />
+        android:textSize="20dp"
+        android:background="#8f03d21b"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/event_list_button"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/eventlist_event_location"
+        android:layout_toEndOf="@+id/eventlist_event_location"
+        android:textAlignment="center" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:id="@+id/imageButton"
+        android:id="@+id/event_list_button"
         android:src="@android:drawable/ic_menu_send"
         android:layout_gravity="right"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

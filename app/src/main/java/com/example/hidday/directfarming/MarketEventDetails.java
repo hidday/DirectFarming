@@ -36,9 +36,21 @@ public class MarketEventDetails extends ActionBarActivity {
         final int position = extras.getInt("Position");
 
         marketEvent=ActiveEvents.marketEventsList.get(position);
+
+        TextView market_event_name = (TextView) findViewById(R.id.event_details_headline);
+        TextView market_event_date = (TextView) findViewById(R.id.event_details_subheadline);
+        market_event_name.setText(marketEvent.getMarket().getName());
+
+        int day=marketEvent.getDate().getTime().getDay();
+        int month=marketEvent.getDate().getTime().getMonth();
+        int year=marketEvent.getDate().getTime().getYear();
+        year=year%100;
+        String dateString= day+"/"+month+"/"+year;
+        market_event_date.setText(dateString);
+
         this.bidList=marketEvent.getBidList();
 
-        event_bids_list=(ListView)findViewById(R.id.active_market_event_list);
+        event_bids_list=(ListView)findViewById(R.id.event_details_list);
         adapter=new CustomAdapter();
         event_bids_list.setAdapter(adapter);
 
@@ -85,12 +97,6 @@ public class MarketEventDetails extends ActionBarActivity {
         //constructor for the adapter
         public CustomAdapter(){
             inflater = LayoutInflater.from(getApplicationContext());
-
-            for(int i=0;i<marketEvent.getBidList().size();i++)
-            {
-            bidList.add(marketEvent.getBidList().get(i));
-            }
-
         }
 
         @Override
@@ -116,8 +122,7 @@ public class MarketEventDetails extends ActionBarActivity {
 
             Bid bid_row = bidList.get(location);
 
-            TextView market_event_name = (TextView) convertView.findViewById(R.id.event_details_headline);
-            TextView market_event_date = (TextView) convertView.findViewById(R.id.event_details_subheadline);
+
             TextView bid_crop = (TextView) convertView.findViewById(R.id.bid_crop_name);
             TextView bid_winner = (TextView) convertView.findViewById(R.id.bid_winner_name);
             TextView bid_price = (TextView) convertView.findViewById(R.id.bid_winning_price);
@@ -125,10 +130,9 @@ public class MarketEventDetails extends ActionBarActivity {
 
             bid_crop.setText(bid_row.getCrop().toString());
             bid_winner.setText(bid_row.getWinner().toString());
-            bid_price.setText(bid_row.getPrice());
 
-            market_event_name.setText(marketEvent.getMarket().getName());
-            market_event_date.setText(marketEvent.getDate().toString());
+            bid_price.setText(""+bid_row.getPrice());
+
 
 
             place_bid.setOnClickListener(new View.OnClickListener() {

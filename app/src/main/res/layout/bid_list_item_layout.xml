@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="#6460aa9f">
 
     <LinearLayout
         android:orientation="vertical"
@@ -25,14 +26,19 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="40dp"
             android:layout_margin="@dimen/my_auctions_activity_horizontal_margin"
-            android:gravity="center_vertical|left" />
+            android:gravity="center_vertical|left"
+            android:textColor="@color/abc_primary_text_material_light" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="crop name"
-            android:id="@+id/bid_crop_name" />
+            android:id="@+id/bid_crop_name"
+            android:textColor="#ff000000"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:theme="@style/AppTheme" />
     </LinearLayout>
 
     <LinearLayout
@@ -53,14 +59,17 @@
             android:gravity="center|center_vertical"
             android:layout_alignTop="@+id/crop_price"
             android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/my_auctions_activity_horizontal_margin" />
+            android:layout_margin="@dimen/my_auctions_activity_horizontal_margin"
+            android:textColor="@color/abc_primary_text_material_light"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Winner "
-            android:id="@+id/bid_winner_name" />
+            android:id="@+id/bid_winner_name"
+            android:textStyle="normal"
+            android:textColor="#ff626462" />
     </LinearLayout>
 
     <LinearLayout
@@ -85,7 +94,8 @@
             android:layout_margin="@dimen/my_auctions_activity_horizontal_margin"
             android:layout_alignParentEnd="false"
             android:layout_alignParentStart="false"
-            android:gravity="center_vertical|right" />
+            android:gravity="center_vertical|right"
+            android:textColor="@color/abc_primary_text_material_light"/>
 
         <TextView
             android:layout_width="wrap_content"
