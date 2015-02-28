@@ -71,9 +71,9 @@ public class ActiveEvents extends ActionBarActivity {
         GregorianCalendar date2= new GregorianCalendar (2015,5,2);
         GregorianCalendar date3= new GregorianCalendar (2015,11,23);
 
-        marketEventsList.add(new MarketEvent(new Market("BeerSheva", idCounter, "089875266","Yaacov Avinu 8","Kama Yosi"),date1 ));
-        marketEventsList.add(new MarketEvent(new Market("Tel Aviv", idCounter+1, "035875266","Eben Gevirol 5","Dudu"),date2 ));
-        marketEventsList.add(new MarketEvent(new Market("Haifa", idCounter+2, "049885266","Haatzmaut 82","Yonatan"),date3 ));
+        marketEventsList.add(new MarketEvent(new Market("BeerSheva", "089875266","Yaacov Avinu 8","Kama Yosi"),date1 ));
+        marketEventsList.add(new MarketEvent(new Market("Tel Aviv", "035875266","Eben Gevirol 5","Dudu"),date2 ));
+        marketEventsList.add(new MarketEvent(new Market("Haifa", "049885266","Haatzmaut 82","Yonatan"),date3 ));
 
         ArrayList<Bid> bidList= new ArrayList<>();
         bidList.add(new Bid(Crop.Tomato));
