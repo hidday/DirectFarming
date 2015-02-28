@@ -11,6 +11,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -81,37 +83,6 @@ public class Model {
         return markets;
     }
 
-    /*
-    /////////////CallBack Interface //////////////////
-    interface GetAllClbck{
-        public void done(List<Market> markets);
-    }
-    /////////////Find In Background Operation with CallBack//////////////////
-    public void getAllMarkets2(GetAllClbck clbck){
-        final GetAllClbck getAllListener=clbck;
-
-        Log.d("HA", "Model - Getting all markets");
-
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Markets");
-
-        query.findInBackground(new FindCallback<ParseObject>() {
-
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                Log.d("HA", "Model - Getting all markets - done ()" );
-                List<Market> markets = new ArrayList<Market>();
-                for(ParseObject o: objects){
-                    markets.add(jsonToMarket(o));
-                }
-                getAllListener.done(markets);
-                Log.d("HA", "Model after getAllListener.done()" );
-            }
-
-        });
-        Log.d("HA", "Model Getting all markets -after findInBackground ()" );
-
-    }
-    */
 
     ////////////Helper method to covert from ParseObject to Student //////////////
     public Market jsonToMarket(ParseObject p){
@@ -196,6 +167,85 @@ public class Model {
     }
 
 
+    /*****************************************************/
+    //Marketevents retreving methods
+    /*****************************************************/
+
+
+   public void addMarketEvent(MarketEvent marketEvent) {
+        Log.d("DB", "Model addMarketEvent " + marketEvent);
+        ParseObject newMarketEvent = marketEventToJson(marketEvent);
+        //		newStudent.saveInBackground();
+        try {
+            newMarketEvent.save();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    /////////////No Background Operation//////////////////
+
+    public ArrayList<MarketEvent> getAllMarketEvents() {
+        Log.d("HA", "Model - Getting all marketEvents");
+        ArrayList<MarketEvent> marketEvents = new ArrayList<MarketEvent>();
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("MarketEvents");
+        try {
+            List<ParseObject> objects = query.find();
+            if (objects != null) {
+                Log.d("HA", "Model - Getting all marketEvents - done (), objects.size()=" + objects.size());
+
+                for (ParseObject o : objects) {
+                    marketEvents.add(jsonToMarketEvent(o));
+                }
+                Log.d("HA", "Model - after coversion marketEvents.size()=" + marketEvents.size());
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.e("HA", "Model - query.find() exeption" + e.toString());
+        }
+        Log.d("HA", "Model - Getting all marketEvents finished");
+
+        return marketEvents;
+    }
+
+
+    ////////////Helper method to covert from ParseObject to Student //////////////
+    public MarketEvent jsonToMarketEvent(ParseObject p) {
+        Market market= getMarketByName(p.getString("Name"));
+
+        GregorianCalendar calendar=new GregorianCalendar();
+        calendar.setTime(p.getDate("Date"));
+        MarketEvent marketEvent= new MarketEvent(market,calendar ,p.getInt("ID"));
+        Log.d("HA", "Model - jsonToMarketEvent" + marketEvent);
+        return marketEvent;
+    }
+
+    ////////////Helper method to covert from MarketEvent to ParseObject /////////////
+    public ParseObject marketEventToJson(MarketEvent marketEvent) {
+        ParseObject po = new ParseObject("MarketEvent");
+        po.put("ID", marketEvent.getID());
+        po.put("Name", marketEvent.getMarket().getName());
+        po.put("Date", marketEvent.getDate());
+        return po;
+    }
+
+
+    //Retrieve the object by id
+
+    public MarketEvent getMarketEventByID(int id) {
+        MarketEvent noMarketEvent = new MarketEvent(new Market("not found", "", "", ""),new GregorianCalendar(2004,4,4),999);
+        ArrayList<MarketEvent> allMarketEvents = getAllMarketEvents();
+
+        for (int i = 0; i < allMarketEvents.size(); i++) {
+            if (allMarketEvents.get(i).getID()==id) {
+                return allMarketEvents.get(i);
+            }
+        }
+
+        return noMarketEvent;
+    }
 
 
     /*****************************************************/
@@ -204,9 +254,9 @@ public class Model {
 
 
 
-    public void addBid(Bid bid){
+    public void addBid(Bid bid,int marketEventID){
         Log.d("DB", "Model addBid " + bid);
-        ParseObject newBid=bidToJson(bid);
+        ParseObject newBid=bidToJson(bid,marketEventID);
         //		newStudent.saveInBackground();
         try {
             newBid.save();
@@ -219,9 +269,24 @@ public class Model {
 
     /////////////No Background Operation//////////////////
 
+    class BidPlusEvent{
+        Bid bid;
+        MarketEvent marketEvent;
+
+        BidPlusEvent(Bid bid, MarketEvent marketEvent) {
+            this.bid = bid;
+            this.marketEvent = marketEvent;
+        }
+    }
+
     public ArrayList<Bid> getAllBids(){
+        ArrayList<Bid> allBids = new ArrayList<Bid>();
+
+    }
+
+    public ArrayList<BidPlusEvent> getAllBidPlusEvent(){
         Log.d("HA", "Model - Getting all bids");
-        ArrayList<Bid> bids = new ArrayList<Bid>();
+        ArrayList<BidPlusEvent> allBidsPlusEvents = new ArrayList<BidPlusEvent>();
         ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Bids");
         try{
             List<ParseObject> objects=query.find() ;
@@ -229,9 +294,9 @@ public class Model {
                 Log.d("HA", "Model - Getting all bids - done (), objects.size()=" +objects.size() );
 
                 for(ParseObject o: objects){
-                    bids.add(jsonToBid(o));
+                    allBidsPlusEvents.add(jsonToBidPlusEvent(o));
                 }
-                Log.d("HA", "Model - after coversion bids.size()=" +bids.size());
+                Log.d("HA", "Model - after coversion bids.size()=" +allBidsPlusEvents.size());
             }
         }
         catch(ParseException e){
@@ -240,74 +305,44 @@ public class Model {
         }
         Log.d("HA", "Model - Getting all bids finished" );
 
-        return bids;
+        return allBidsPlusEvents;
     }
 
 
 
     ////////////Helper method to covert from ParseObject to Bid //////////////
-    public Bid jsonToBid(ParseObject p){
-
+    public BidPlusEvent jsonToBidPlusEvent(ParseObject p){
+        MarketEvent marketEvent= getMarketEventByID(p.getInt("MarketEventID"));
         Bid bid= new Bid(p.getString("Crop"),p.getString("Bidder"),p.getInt("Price"));
+        BidPlusEvent bpe= new BidPlusEvent(bid,marketEvent);
         Log.d("HA", "Model - jsonToBid" +bid );
-        return bid;
+        return bpe;
     }
 
     ////////////Helper method to covert from Bid to ParseObject /////////////
-    public ParseObject bidToJson(Bid bid){
+    public ParseObject bidToJson(Bid bid, int marketEventID ){
         ParseObject po = new ParseObject("Bid");
         po.put("Crop",bid.getCrop());
         po.put("Bidder", bid.getWinner());
         po.put("Price", bid.getPrice());
+        po.put("MarketEventID",marketEventID);
         return po;
     }
 
-
-    public void editBid(Bid bid,MarketEvent marketEvent) {
-        final Bid bid1=bid;
-        ParseObject bidToEdit=null;
-        Log.d("HA", "Model.editStudent index= " +bid.getCrop());
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Bids");
-        query.whereEqualTo("Crop", bid.getCrop());
-        query.whereEqualTo("MarketEventID",marketEvent.getID());
-        try{
-            List<ParseObject> bidList=query.find();
-            if (bidList.size()>0) {
-                Log.d("HA", "Model.editStudent Retrieved " + bidList.size() + " students");
-                bidToEdit=bidList.get(0);
-                bidToEdit.put("Crop",bid1.getCrop());
-                bidToEdit.put("Price",bid1.getPrice());
-
-                //bidder and winner are not the same- to be fixed
-                bidToEdit.put("Bidder",bid1.getWinner());
-                bidToEdit.put("MarketEventID",marketEvent.getID());
-            }
-        }
-        catch(ParseException e){
-            e.printStackTrace();
-        }
-
-
-        bidToEdit.saveInBackground();
-    }
-
     //Retrieve the object by id
-    Bid bid;
-    public Bid getBidByCropAndID(String crop, int eventId){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Bids");
-        query.whereEqualTo("Crop", crop);
-        query.whereEqualTo("MarketEventID", eventId);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> bidList, ParseException e) {
-                if (e == null) {
-                    Log.d("HA", "Model.getBidByName Retrieved " + bidList.size() + " bids");
-                    bid=jsonToBid(bidList.get(0));
 
-                } else {
-                    Log.d("HA", "Model.getBidByName Error: " + e.getMessage());
-                }
+    public Bid getBidByCropAndEventID(String crop, int eventId){
+        MarketEvent marketEvent=getMarketEventByID(eventId);
+        Bid noBid = new Bid(crop,"no one",999);
+        ArrayList<Bid> allBids = getAllBids();
+
+        for (int i = 0; i < allBids.size(); i++) {
+            if (allBids.get(i).()==id) {
+                return allMarketEvents.get(i);
             }
-        });
+        }
+
+        return noMarketEvent;
         return bid;
     }
 

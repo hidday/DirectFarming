@@ -34,6 +34,13 @@ public class MyAuctions extends ActionBarActivity {
         user_name3 = (TextView)findViewById(R.id.user_name3);
 
 
+        ArrayList<MarketEvent> marketEventsTest=new ArrayList<>();
+
+        marketEventsTest=MainActivity.DB.getAllMarketEvents();
+
+        MarketEvent me;
+        me=MainActivity.DB.getMarketEventByID(3);
+
         Market marketTest;
         marketTest= MainActivity.DB.getMarketByName("Tel aviv");
 
