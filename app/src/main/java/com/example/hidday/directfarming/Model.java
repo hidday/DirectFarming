@@ -159,22 +159,18 @@ public class Model {
     }
 
      //Retrieve the object by id
-    Market market;
-    public Market getMarketByName(String Name){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Markets");
-        query.whereEqualTo("Name", Name);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> marketList, ParseException e) {
-                if (e == null) {
-                    Log.d("HA", "Model.getMarketByName Retrieved " + marketList.size() + " markets");
-                    market=jsonToMarket(marketList.get(0));
 
-                } else {
-                    Log.d("HA", "Model.getMarketByName Error: " + e.getMessage());
-                }
+    public Market getMarketByName(String Name){
+        Market noMarket=new Market("not found","","","");
+        ArrayList<Market> allMarkets= getAllMarkets();
+
+        for (int i = 0; i <allMarkets.size() ; i++) {
+            if (allMarkets.get(i).getName().equals(Name)) {
+                return allMarkets.get(i);
             }
-        });
-        return market;
+        }
+
+        return noMarket;
     }
 
 
