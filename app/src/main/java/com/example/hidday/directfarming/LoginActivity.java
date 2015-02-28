@@ -47,7 +47,7 @@ public class LoginActivity extends Activity {
 
                 // Send data to Parse.com for verification
                 ParseUser.logInInBackground(usernametxt, passwordtxt, new LogInCallback() {
-                            public void done(ParseUser user, ParseException e) {
+                    public void done(ParseUser user, ParseException e) {
                                 if (user != null) {
                                     // If user exist and authenticated, send user to Welcome.class
                                     Intent intent = new Intent(LoginActivity.this,

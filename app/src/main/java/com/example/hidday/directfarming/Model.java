@@ -105,7 +105,7 @@ public class Model {
     public void editMarket(Market s) {
         final Market s1=s;
         ParseObject marketToEdit=null;
-        Log.d("HA", "Model.editStudent index= " +s1.getName());
+        Log.d("HA", "Model.editStudent index= " + s1.getName());
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Markets");
         query.whereEqualTo("Name", s.getName());
         try{
@@ -279,7 +279,7 @@ public class Model {
         }
     }
 
-    public ArrayList<Bid> getAllBids(){
+    public void getAllBids(){
         ArrayList<Bid> allBids = new ArrayList<Bid>();
 
     }
