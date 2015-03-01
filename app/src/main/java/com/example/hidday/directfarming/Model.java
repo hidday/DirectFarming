@@ -296,7 +296,8 @@ public class Model {
         }
     }
 
-    public ArrayList<Bid> getAllBids(){
+    public ArrayList<Bid> getAllBids()
+  {
         ArrayList<Bid> allBids = new ArrayList<Bid>();
         ArrayList<BidPlusEvent> allBidsPlusEvents = getAllBidPlusEvent();
 
