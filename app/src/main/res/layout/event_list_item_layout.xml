@@ -10,32 +10,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Event Location"
+        android:text="       Event Location"
         android:id="@+id/eventlist_event_location"
-        android:layout_gravity="center_vertical|left"
-        android:textIsSelectable="false"
-        android:textSize="20dp"
+
+        android:textSize="15dp"
         android:background="#7556df54"
-        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@+id/eventlist_event_date"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentStart="false"
+        android:layout_alignTop="@+id/eventlist_event_date"
+        android:layout_toLeftOf="@+id/eventlist_event_date"
+        android:layout_toStartOf="@+id/eventlist_event_date" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Event Date"
+        android:text="    Event Date"
         android:id="@+id/eventlist_event_date"
-        android:layout_gravity="center_vertical|right"
-        android:textSize="20dp"
+        android:textAlignment="viewEnd"
+
+        android:textSize="15dp"
         android:background="#8f03d21b"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@+id/event_list_button"
+        android:editable="false"
         android:layout_toLeftOf="@+id/event_list_button"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/eventlist_event_location"
-        android:layout_toEndOf="@+id/eventlist_event_location"
-        android:textAlignment="center" />
+        android:minWidth="100dp"
+        android:longClickable="true"
+        android:singleLine="false" />
 
     <ImageButton
         android:layout_width="wrap_content"

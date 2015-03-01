@@ -2,18 +2,7 @@ package com.example.hidday.directfarming;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 
 public class MyAuctions extends ActionBarActivity {
@@ -29,11 +18,11 @@ public class MyAuctions extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_auctions);
 
-        user_name1 = (TextView)findViewById(R.id.user_name1);
+      /*  user_name1 = (TextView)findViewById(R.id.user_name1);
         user_name2 = (TextView)findViewById(R.id.user_name2);
         user_name3 = (TextView)findViewById(R.id.user_name3);
 
-        /*
+
         ArrayList<MarketEvent> marketEventsTest=new ArrayList<>();
 
         marketEventsTest=MainActivity.DB.getAllMarketEvents();
