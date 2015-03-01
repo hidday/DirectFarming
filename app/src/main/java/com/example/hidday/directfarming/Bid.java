@@ -46,13 +46,14 @@ public class Bid {
         this.winner= "Empty";
     }
 
-    public boolean placeBid(String bidder, int bidPrice)
+    public boolean placeBid(String bidder, int bidPrice, int eventID)
     {
         if(bidPrice<this.price)
         {
             this.winner=bidder;
             this.price=bidPrice;
             this.biddingHistory.put(bidder,bidPrice);
+            MainActivity.DB.addBid(this,eventID);
             return true;
         }
         else

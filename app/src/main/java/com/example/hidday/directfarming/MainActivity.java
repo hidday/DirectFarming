@@ -15,7 +15,7 @@ public class MainActivity extends Activity {
     public static Model DB;
 
     /******************************/
-    public static final Farmer myName = new Farmer("Hidday",1,"087534128","yaacov avinu");
+    public static String myName="free";
     //for testing purposes//
     /*******************************/
 
@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
             ParseUser currentUser = ParseUser.getCurrentUser();
             if (currentUser != null) {
                 // Send logged in users to Welcome.class
+                myName=currentUser.getUsername();
                 Intent intent = new Intent(MainActivity.this, Welcome.class);
                 startActivity(intent);
                 finish();

@@ -35,13 +35,13 @@ public class ActiveEvents extends ActionBarActivity {
 
         idCounter=0;
 
+        /*
         if(flagFirst==true){
             createInitialEventList();
             flagFirst=false;
         }
-
-
-
+        */
+        marketEventsList=MainActivity.DB.getAllMarketEvents();
 
         market_event_list=(ListView)findViewById(R.id.active_market_event_list);
         adapter=new CustomAdapter();
@@ -58,6 +58,10 @@ public class ActiveEvents extends ActionBarActivity {
             }
         });
 
+    }
+
+    private void refreshData(){
+        marketEventsList=MainActivity.DB.getAllMarketEvents();
     }
 
 
@@ -87,7 +91,9 @@ public class ActiveEvents extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        refreshData();
         market_event_list.setAdapter(adapter);
+
     }
 
     @Override
@@ -144,8 +150,10 @@ public class ActiveEvents extends ActionBarActivity {
                     Log.d("button click", "BITCH"+location);
 
                     Intent market_event_details_intent =new Intent(getApplicationContext(), MarketEventDetails.class);
-
+                    int eventID= marketEventsList.get(location).getID();
                     market_event_details_intent.putExtra("Position",location);
+                    market_event_details_intent.putExtra("EventID",eventID);
+
                     startActivity(market_event_details_intent);
                 }
             });
