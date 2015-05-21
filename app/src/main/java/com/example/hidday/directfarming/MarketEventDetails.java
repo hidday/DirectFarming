@@ -15,23 +15,29 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 
 public class MarketEventDetails extends ActionBarActivity {
 
 
     private int chosenEvent;
-    public static   ArrayList<Bid> bidList;
+    public static ArrayList<MarketStand> stands;
     private MarketEvent marketEvent;
-    public static int idCounter;
+
     private CustomAdapter adapter;
     private ListView event_bids_list;
-    Bundle extras;
+    private Bundle extras;
+    private DataManager DB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_market_event_details);
+
+        this.DB= DataManager.getInstance(this);
+        stands=new ArrayList<>();
+        refreshData();
 
         extras = getIntent().getExtras();
         final int position = extras.getInt("Position");
@@ -51,7 +57,7 @@ public class MarketEventDetails extends ActionBarActivity {
         String dateString= day+"/"+month+"/"+year;
         market_event_date.setText(dateString);
 
-        this.bidList=MainActivity.DB.getAllBidsByEvent(position);
+       // this.stands=MainActivity.DB.getAllBidsByEvent(position);
 
         event_bids_list=(ListView)findViewById(R.id.event_details_list);
         adapter=new CustomAdapter();
@@ -72,14 +78,41 @@ public class MarketEventDetails extends ActionBarActivity {
 
     }
 
+    private void getAllStands(){
+
+    }
+
     private void refreshData(){
-        this.bidList=MainActivity.DB.getAllBidsByEvent(chosenEvent);
+
+        GregorianCalendar cal= new GregorianCalendar();
+        Farmer bidder= new Farmer("Yoni",300207826, "0542193233", "yaacov avinu beersheva");
+
+        MarketEvent market1= new MarketEvent(new Market("Tel Aviv","050784564","hashalom 1","yosi"),cal,1);
+        MarketStand stand1= new MarketStand(Crop.Beets, market1);
+        MarketStand stand2= new MarketStand(Crop.Broccoli, market1);
+        MarketStand stand3= new MarketStand(Crop.Carrot, market1);
+        MarketStand stand4= new MarketStand(Crop.Tomato, market1);
+
+        stand1.setCurrentWinner(bidder);
+        stand2.setCurrentWinner(bidder);
+        stand3.setCurrentWinner(bidder);
+        stand4.setCurrentWinner(bidder);
+
+        stand1.setWinningBid(new Bid(bidder, 5));
+        stand2.setWinningBid(new Bid(bidder,5));
+        stand3.setWinningBid(new Bid(bidder,5));
+        stand4.setWinningBid(new Bid(bidder,5));
+
+        this.stands.add(stand1);
+        this.stands.add(stand2);
+        this.stands.add(stand3);
+        this.stands.add(stand4);
 
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onRestart() {
+        super.onRestart();
         refreshData();
     }
 
@@ -115,12 +148,12 @@ public class MarketEventDetails extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            return bidList.size();
+            return stands.size();
         }
 
         @Override
         public Object getItem(int arg0) {
-            return bidList.get(arg0);
+            return stands.get(arg0);
         }
 
         @Override
@@ -131,10 +164,10 @@ public class MarketEventDetails extends ActionBarActivity {
         @Override
         public View getView(final int location, View convertView, ViewGroup parent) {
             if (convertView == null){
-                convertView = inflater.inflate(R.layout.bid_list_item_layout, parent,false);
+                convertView = inflater.inflate(R.layout.marketstand_list_item_layout, parent,false);
             }
 
-            Bid bid_row = bidList.get(location);
+            MarketStand stand_row = stands.get(location);
 
 
             TextView bid_crop = (TextView) convertView.findViewById(R.id.bid_crop_name);
@@ -142,10 +175,10 @@ public class MarketEventDetails extends ActionBarActivity {
             TextView bid_price = (TextView) convertView.findViewById(R.id.bid_winning_price);
             ImageButton place_bid =(ImageButton) convertView.findViewById(R.id.bid_row_item_place_bid_button);
 
-            bid_crop.setText(bid_row.getCrop().toString());
-            bid_winner.setText(bid_row.getWinner().toString());
+            bid_crop.setText(stand_row.getCrop().toString());
+            bid_winner.setText(stand_row.getCurrentWinner().toString());
 
-            bid_price.setText(""+bid_row.getPrice());
+            bid_price.setText(""+stand_row.getWinningBid().getPrice());
 
 
 

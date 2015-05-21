@@ -41,7 +41,7 @@ public class ActiveEvents extends ActionBarActivity {
             flagFirst=false;
         }
         */
-        marketEventsList=MainActivity.DB.getAllMarketEvents();
+       // marketEventsList=MainActivity.DB.getAllMarketEvents();
 
         market_event_list=(ListView)findViewById(R.id.active_market_event_list);
         adapter=new CustomAdapter();
@@ -61,7 +61,9 @@ public class ActiveEvents extends ActionBarActivity {
     }
 
     private void refreshData(){
-        marketEventsList=MainActivity.DB.getAllMarketEvents();
+      //  marketEventsList=MainActivity.DB.getAllMarketEvents();
+        createInitialEventList();
+
     }
 
 
@@ -158,10 +160,13 @@ public class ActiveEvents extends ActionBarActivity {
                 }
             });
 
+
             int day=event_row.getDate().getTime().getDay();
             int month=event_row.getDate().getTime().getMonth();
             int year=event_row.getDate().getTime().getYear();
             year=year%100;
+            month=month+1;
+            day=(day+31)%30;
 
             String dateString= day+"/"+month+"/"+year;
 

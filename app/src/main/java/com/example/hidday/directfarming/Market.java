@@ -8,6 +8,8 @@ import com.parse.ParseObject;
  * Created by hidday on 25/02/2015.
  */
 public class Market  {
+
+
     private String name;
     private String phone;
     private String address;

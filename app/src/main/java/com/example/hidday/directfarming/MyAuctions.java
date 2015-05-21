@@ -29,10 +29,12 @@ public class MyAuctions extends ActionBarActivity {
 
         MarketEvent me;
         me=MainActivity.DB.getMarketEventByID(3);
+        */
 
-        Market marketTest;
-        marketTest= MainActivity.DB.getMarketByName("Tel aviv");
-
+        /*Market marketTest;
+        MainActivity.DB.getMarketByName("Tel aviv");
+        marketTest=MainActivity.marketHelper;
+        /*
         ArrayList<Market> marketList1=new ArrayList<>();
 
         marketList1= MainActivity.DB.getAllMarkets();
@@ -50,12 +52,12 @@ public class MyAuctions extends ActionBarActivity {
 
 
 
-        user_name1.setText(marketname1+"oved");
+        user_name1.setText(marketTest.getName().toString()+"oved");
 
         user_name2.setText(marketname1);
 
         user_name3.setText(marketname1);
-        */
+  */
 
     }
 

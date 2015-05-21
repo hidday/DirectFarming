@@ -12,8 +12,8 @@ import com.parse.ParseUser;
 
 
 public class MainActivity extends Activity {
-    public static Model DB;
-
+    public static DataManager DB;
+    public static Market marketHelper;
     /******************************/
     public static String myName="free";
     //for testing purposes//
@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
 
 
 
-        DB=Model.getInstance(this);
+        DB= DataManager.getInstance(this);
 
         // Determine whether the current user is an anonymous user
         if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {

@@ -14,7 +14,7 @@ import android.widget.TextView;
 public class PlaceBid extends ActionBarActivity {
 
     Bundle extras;
-    Bid bid;
+    MarketStand selectedStand;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class PlaceBid extends ActionBarActivity {
         final int position = extras.getInt("Position");
         final int eventID = extras.getInt("EventID");
 
-        this.bid=MarketEventDetails.bidList.get(position);
+        this.selectedStand=MarketEventDetails.stands.get(position);
 
         TextView crop_name = (TextView) findViewById(R.id.place_bid_crop_name);
         TextView previous_price = (TextView) findViewById(R.id.place_bid_previous_price);
@@ -33,8 +33,8 @@ public class PlaceBid extends ActionBarActivity {
         Button place_bid_button= (Button) findViewById(R.id.place_bid_button);
 
 
-        crop_name.setText(bid.getCrop().toString());
-        previous_price.setText(""+bid.getPrice());
+        crop_name.setText(selectedStand.getCrop().toString());
+        previous_price.setText(""+selectedStand.getWinningBid().getPrice());
 
         place_bid_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +49,7 @@ public class PlaceBid extends ActionBarActivity {
                     bidPrice=Integer.parseInt(new_price.getText().toString());
                 }
 
-                bid.placeBid(MainActivity.myName, bidPrice, eventID);
+             //   selectedStand.placeBid(MainActivity.myName, bidPrice, eventID);
 
                 Intent i = new Intent(getApplicationContext(), ActiveEvents.class);
                 startActivity(i);

@@ -12,71 +12,27 @@ import java.util.ArrayList;
  */
 public class Bid {
 
-    private Crop crop;
-    private String winner;
+    private Farmer bidder;
     private int price;
-    private SimpleArrayMap<String,Integer> biddingHistory;
 
-    public Bid(Crop crop, String winner, int price) {
-        this.biddingHistory=new SimpleArrayMap<>();
+    public Bid(Farmer bidder, int price) {
 
-        this.crop = crop;
-        this.winner = winner;
+        this.bidder = bidder;
         this.price = price;
 
-        this.biddingHistory.put(winner,price);
-    }
-
-
-    public Bid(String crop, String winner, int price) {
-        this.biddingHistory=new SimpleArrayMap<>();
-
-        this.crop = Crop.valueOf(crop);
-        this.winner = winner;
-        this.price = price;
-
-        this.biddingHistory.put(winner,price);
     }
 
     public Bid(Crop crop) {
-        this.biddingHistory=new SimpleArrayMap<>();
-
-        this.crop = crop;
         this.price = 9999;
-        this.winner= "Empty";
+        this.bidder=new Farmer("Empty",0,"","");
     }
 
-    public boolean placeBid(String bidder, int bidPrice, int eventID)
-    {
-        if(bidPrice<this.price)
-        {
-            this.winner=bidder;
-            this.price=bidPrice;
-            this.biddingHistory.put(bidder,bidPrice);
-            MainActivity.DB.addBid(this,eventID);
-            return true;
-        }
-        else
-        {
-            this.biddingHistory.put(bidder,bidPrice);
-            return false;
-        }
+    public Farmer getBidder() {
+        return this.bidder;
     }
 
-    public Crop getCrop() {
-        return crop;
-    }
-
-    public void setCrop(Crop crop) {
-        this.crop = crop;
-    }
-
-    public String getWinner() {
-        return winner;
-    }
-
-    public void setWinner(String winner) {
-        this.winner = winner;
+    public void setBidder(Farmer bidder) {
+        this.bidder = bidder;
     }
 
     public int getPrice() {
@@ -85,14 +41,5 @@ public class Bid {
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-    public SimpleArrayMap<String, Integer> getBiddingHistory() {
-
-        return biddingHistory;
-    }
-
-    public void setBiddingHistory(SimpleArrayMap<String, Integer> biddingHistory) {
-        this.biddingHistory = biddingHistory;
     }
 }

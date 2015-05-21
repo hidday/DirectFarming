@@ -14,10 +14,9 @@
 
 
 
-    <ScrollView android:id="@+id/login_form" android:layout_width="241dp"
+    <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_green_light"
-        android:layout_weight="1.09">
+        android:background="@android:color/holo_green_light">
 
         <LinearLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="vertical"
