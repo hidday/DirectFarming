@@ -10,27 +10,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="       Event Location"
+        android:text="         Event Location"
         android:id="@+id/eventlist_event_location"
-
+        android:layout_gravity="center"
         android:textSize="15dp"
-        android:background="#7556df54"
+        android:background="#ff0a4f04"
         android:layout_alignBottom="@+id/eventlist_event_date"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="false"
         android:layout_alignTop="@+id/eventlist_event_date"
         android:layout_toLeftOf="@+id/eventlist_event_date"
-        android:layout_toStartOf="@+id/eventlist_event_date" />
+        android:layout_toStartOf="@+id/eventlist_event_date"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="    Event Date"
+        android:text="                 Event Date"
         android:id="@+id/eventlist_event_date"
-        android:textAlignment="viewEnd"
-
-        android:textSize="15dp"
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:textSize="15sp"
         android:background="#8f03d21b"
         android:layout_alignTop="@+id/event_list_button"
         android:editable="false"
