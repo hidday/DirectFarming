@@ -1,11 +1,4 @@
-package com.example.hidday.directfarming;
-
-import android.support.v4.util.SimpleArrayMap;
-import android.util.ArrayMap;
-
-import com.example.hidday.directfarming.Crop;
-
-import java.util.ArrayList;
+package com.example.hidday.directfarming.DataClasses;
 
 /**
  * Created by hidday on 26/02/2015.

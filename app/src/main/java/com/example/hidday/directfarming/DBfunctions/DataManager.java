@@ -1,18 +1,7 @@
-package com.example.hidday.directfarming;
+package com.example.hidday.directfarming.DBfunctions;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.parse.Parse;
-import com.parse.ParseACL;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
 import android.database.sqlite.*;
 
 /**

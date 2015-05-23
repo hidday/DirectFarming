@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".AppActivities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,33 +32,55 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Welcome" >
+        <activity android:name=".AppActivities.WelcomeActivity" >
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".AppActivities.LoginActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
 
         </activity>
         <activity
-            android:name=".MyAuctions"
-            android:label="@string/title_activity_my_auctions" >
+            android:name=".AppActivities.RegisterActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateVisible"
+            android:parentActivityName=".AppActivities.LoginActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AppActivities.LoginActivity" />
+
         </activity>
         <activity
-            android:name=".ActiveEvents"
+            android:name=".AppActivities.MyAuctionsActivity"
+            android:label="@string/title_activity_my_auctions"
+            android:parentActivityName=".AppActivities.ActiveEvents" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AppActivities.ActiveEvents" />
+
+        </activity>
+        <activity
+            android:name=".AppActivities.ActiveEvents"
             android:label="@string/title_activity_active_auctions" >
         </activity>
         <activity
-            android:name=".MarketEventDetails"
+            android:name=".AppActivities.MarketEventStandsActivity"
             android:label="@string/title_activity_market_event_details"
-            android:parentActivityName=".ActiveEvents" >
+            android:parentActivityName=".AppActivities.ActiveEvents" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ActiveEvents" />
+                android:value=".AppActivities.ActiveEvents" />
         </activity>
         <activity
-            android:name=".PlaceBid"
-            android:label="@string/title_activity_place_bid" >
+            android:name=".AppActivities.PlaceBidActivity"
+            android:label="@string/title_activity_place_bid"
+            android:parentActivityName=".AppActivities.MarketEventStandsActivity" >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AppActivities.MarketEventStandsActivity" />
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.example.hidday.directfarming;
+package com.example.hidday.directfarming.DataClasses;
 
 import android.location.Address;
 import android.provider.ContactsContract;

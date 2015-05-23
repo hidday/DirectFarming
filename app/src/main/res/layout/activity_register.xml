@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="10dip"
+        android:dividerPadding="10dp"
+        android:background="@drawable/green_bell_peppers"
+        android:id="@+id/register_layout"
+        android:alpha="1">
+
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:background="@drawable/register_background"
+        android:weightSum="1"
+        android:id="@+id/register_form"
+        android:layout_margin="12dp">
+
+        <!--  View Title Label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dip"
+            android:text="REGISTER"
+            android:textSize="25dip"
+            android:textStyle="bold"
+            style="@style/registration_headlines"
+            android:autoText="false"
+            android:textColor="#ffffffff"
+            android:layout_gravity="center_horizontal" />
+
+
+        <!--  Name Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Full Name"
+
+            style="@style/registration_headlines"/>
+        <!--  Name TextField -->
+        <EditText
+            android:id="@+id/registerName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_states"
+            style="@style/registration_inputs"
+            android:textSize="15dp"
+            android:selectAllOnFocus="false"
+            android:hint="Israel Israeli" />
+
+        <!--  Email Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textColor="#ffffffff"
+            style="@style/registration_headlines"/>
+        <!--  Email TextField -->
+        <EditText
+            android:id="@+id/registerEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_states"
+            style="@style/registration_inputs"
+            android:textSize="15dp"
+            android:hint="israel@agro.com" />
+
+        <!--  Password Label -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            style="@style/registration_headlines"/>
+        <!--  Password TextField -->
+        <EditText
+            android:id="@+id/registerPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:password="true"
+            android:background="@drawable/edittext_states"
+            style="@style/registration_inputs"
+            android:textSize="15dp"
+            android:hint="notgoodenough" />
+
+        <!--  Error message -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="0dip"
+            android:id="@+id/register_error"
+            android:layout_gravity="center_horizontal" />
+        <!--  Login Button -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:id="@+id/textView3"
+            style="@style/registration_headlines"/>
+
+        <EditText
+            android:id="@+id/register_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/edittext_states"
+            style="@style/registration_inputs"
+            android:textSize="15dp"
+            android:hint="Hashalom 11, Tel Aviv" />
+
+        <TextView
+            style="@style/registration_headlines"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:id="@+id/textView4" />
+
+        <EditText
+            style="@style/registration_inputs"
+            android:id="@+id/register_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:password="false"
+            android:background="@drawable/edittext_states"
+            android:textSize="15dp"
+            android:phoneNumber="true"
+            android:hint="050-12345678" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/register_button"
+            style="@style/registration_headlines"
+            android:textSize="15dp" />
+
+        <!--  Link to Login Screen -->
+
+
+        <Button
+            android:id="@+id/btnLinkToLoginScreen"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:background="@null"
+            android:text="Already registred. Login Me!"
+            android:textColor="#21dbd4"
+            android:textStyle="bold"
+
+            style="@style/registration_headlines"/>
+
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>

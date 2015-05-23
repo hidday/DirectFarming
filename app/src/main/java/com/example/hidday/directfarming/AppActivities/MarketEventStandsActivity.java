@@ -1,4 +1,4 @@
-package com.example.hidday.directfarming;
+package com.example.hidday.directfarming.AppActivities;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -14,11 +14,20 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.hidday.directfarming.DBfunctions.DataManager;
+import com.example.hidday.directfarming.DataClasses.Bid;
+import com.example.hidday.directfarming.DataClasses.Crop;
+import com.example.hidday.directfarming.DataClasses.Farmer;
+import com.example.hidday.directfarming.DataClasses.Market;
+import com.example.hidday.directfarming.DataClasses.MarketEvent;
+import com.example.hidday.directfarming.DataClasses.MarketStand;
+import com.example.hidday.directfarming.R;
+
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 
-public class MarketEventDetails extends ActionBarActivity {
+public class MarketEventStandsActivity extends ActionBarActivity {
 
 
     private int chosenEvent;
@@ -44,7 +53,7 @@ public class MarketEventDetails extends ActionBarActivity {
         final int eventID = extras.getInt("EventID");
         chosenEvent=eventID;
 
-        marketEvent=ActiveEvents.marketEventsList.get(position);
+        marketEvent= ActiveEvents.marketEventsList.get(position);
 
         TextView market_event_name = (TextView) findViewById(R.id.event_details_headline);
         TextView market_event_date = (TextView) findViewById(R.id.event_details_subheadline);
@@ -63,7 +72,7 @@ public class MarketEventDetails extends ActionBarActivity {
         adapter=new CustomAdapter();
         event_bids_list.setAdapter(adapter);
 
-        final Intent market_event_details_intent =new Intent(this, MarketEventDetails.class);
+        final Intent market_event_details_intent =new Intent(this, MarketEventStandsActivity.class);
 
 
         event_bids_list.setOnItemClickListener(new ListView.OnItemClickListener() {
@@ -185,7 +194,7 @@ public class MarketEventDetails extends ActionBarActivity {
             place_bid.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(getApplicationContext(), PlaceBid.class);
+                    Intent i = new Intent(getApplicationContext(), PlaceBidActivity.class);
 
                     i.putExtra("Position", location);
                     i.putExtra("EventID",marketEvent.getID());

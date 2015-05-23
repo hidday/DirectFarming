@@ -9,7 +9,7 @@
     android:layout_alignParentBottom="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    tools:context="com.example.hidday.directfarming.PlaceBid"
+    tools:context="com.example.hidday.directfarming.AppActivities.PlaceBidActivity"
     android:background="#ff18441b"
     android:backgroundTint="#ff3eaa44">
 

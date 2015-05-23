@@ -1,4 +1,4 @@
-package com.example.hidday.directfarming;
+package com.example.hidday.directfarming.AppActivities;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -10,8 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.hidday.directfarming.DataClasses.MarketStand;
+import com.example.hidday.directfarming.R;
 
-public class PlaceBid extends ActionBarActivity {
+
+public class PlaceBidActivity extends ActionBarActivity {
 
     Bundle extras;
     MarketStand selectedStand;
@@ -25,7 +28,7 @@ public class PlaceBid extends ActionBarActivity {
         final int position = extras.getInt("Position");
         final int eventID = extras.getInt("EventID");
 
-        this.selectedStand=MarketEventDetails.stands.get(position);
+        this.selectedStand= MarketEventStandsActivity.stands.get(position);
 
         TextView crop_name = (TextView) findViewById(R.id.place_bid_crop_name);
         TextView previous_price = (TextView) findViewById(R.id.place_bid_previous_price);

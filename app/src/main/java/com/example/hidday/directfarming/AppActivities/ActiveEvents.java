@@ -1,4 +1,4 @@
-package com.example.hidday.directfarming;
+package com.example.hidday.directfarming.AppActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,12 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.hidday.directfarming.DataClasses.Bid;
+import com.example.hidday.directfarming.DataClasses.Crop;
+import com.example.hidday.directfarming.DataClasses.Market;
+import com.example.hidday.directfarming.DataClasses.MarketEvent;
+import com.example.hidday.directfarming.R;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -47,7 +53,7 @@ public class ActiveEvents extends ActionBarActivity {
         adapter=new CustomAdapter();
         market_event_list.setAdapter(adapter);
 
-        final Intent market_event_details_intent =new Intent(getApplicationContext(), MarketEventDetails.class);
+        final Intent market_event_details_intent =new Intent(getApplicationContext(), MarketEventStandsActivity.class);
 
         market_event_list.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
@@ -151,7 +157,7 @@ public class ActiveEvents extends ActionBarActivity {
                 public void onClick(View v) {
                     Log.d("button click", "BITCH"+location);
 
-                    Intent market_event_details_intent =new Intent(getApplicationContext(), MarketEventDetails.class);
+                    Intent market_event_details_intent =new Intent(getApplicationContext(), MarketEventStandsActivity.class);
                     int eventID= marketEventsList.get(location).getID();
                     market_event_details_intent.putExtra("Position",location);
                     market_event_details_intent.putExtra("EventID",eventID);

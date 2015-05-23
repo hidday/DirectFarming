@@ -1,11 +1,13 @@
-package com.example.hidday.directfarming;
+package com.example.hidday.directfarming.AppActivities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.TextView;
 
+import com.example.hidday.directfarming.R;
 
-public class MyAuctions extends ActionBarActivity {
+
+public class MyAuctionsActivity extends ActionBarActivity {
 
     TextView user_name1;
     TextView user_name2;

@@ -1,8 +1,7 @@
-package com.example.hidday.directfarming;
+package com.example.hidday.directfarming.DataClasses;
 
 import android.support.v4.util.SimpleArrayMap;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 

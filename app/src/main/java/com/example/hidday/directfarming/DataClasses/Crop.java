@@ -1,4 +1,4 @@
-package com.example.hidday.directfarming;
+package com.example.hidday.directfarming.DataClasses;
 
 /**
  * Created by hidday on 25/02/2015.

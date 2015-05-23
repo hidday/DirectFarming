@@ -1,4 +1,4 @@
-package com.example.hidday.directfarming;
+package com.example.hidday.directfarming.DataClasses;
 
 import android.util.Log;
 
